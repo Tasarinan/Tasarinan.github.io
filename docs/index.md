@@ -8,13 +8,19 @@ hero:
   actions:
     - theme: brand
       text: 开始使用
-      link: /cn/adopt/intro
+      link: /hello-claw/cn/adopt/intro
     - theme: alt
       text: 🎓 龙虾大学
-      link: /cn/university/
+      link: /hello-claw/cn/university/
     - theme: alt
       text: 深入开发
-      link: /cn/build/
+      link: /hello-claw/cn/build/
+    - theme: alt
+      text: Claude Code
+      link: /claude-code/01-Claude-Code完整安装指南
+    - theme: alt
+      text: OpenClaw 指南
+      link: /openclaw-guide/00-阅读指南
     - theme: alt
       text: GitHub
       link: https://github.com/datawhalechina/hello-claw

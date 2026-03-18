@@ -1,12 +1,20 @@
 import { defineConfig } from 'vitepress'
 import tailwindcss from '@tailwindcss/vite'
 
-const baseConfig = '/hello-claw/'
+const baseConfig = '/'
 
 export default defineConfig({
   base: baseConfig,
   vite: {
     plugins: [tailwindcss()]
+  },
+  vue: {
+    template: {
+      compilerOptions: {
+        // 避免 Docker/GitHub Actions 的 {{ }} 语法被 Vue 解析
+        delimiters: ['${{', '}}$']
+      }
+    }
   },
   ignoreDeadLinks: [
     /^http:\/\/localhost/,
@@ -27,9 +35,11 @@ export default defineConfig({
           label: '目录'
         },
         nav: [
-          { text: '领养龙虾', link: '/cn/adopt/intro' },
-          { text: '龙虾大学', link: '/cn/university/intro.html', activeMatch: '^/cn/university/' },
-          { text: '构建龙虾', link: '/cn/build/' },
+          { text: '领养龙虾', link: '/hello-claw/cn/adopt/intro' },
+          { text: '龙虾大学', link: '/hello-claw/cn/university/intro', activeMatch: '^/hello-claw/cn/university/' },
+          { text: '构建龙虾', link: '/hello-claw/cn/build/' },
+          { text: 'Claude Code', link: '/claude-code/01-Claude-Code完整安装指南', activeMatch: '^/claude-code/' },
+          { text: 'OpenClaw 指南', link: '/openclaw-guide/00-阅读指南', activeMatch: '^/openclaw-guide/' },
           { text: 'GitHub', link: 'https://github.com/datawhalechina/hello-claw' },
         ],
         search: {
@@ -52,44 +62,44 @@ export default defineConfig({
           }
         },
         sidebar: {
-          '/cn/adopt/': [
+          '/hello-claw/cn/adopt/': [
             {
               text: '领养 Claw（使用篇）',
               items: [
-                { text: '写在开头', link: '/cn/adopt/intro' },
+                { text: '写在开头', link: '/hello-claw/cn/adopt/intro' },
                 {
                   text: '🔵 安装',
                   collapsed: false,
                   items: [
-                    { text: '第1章 AutoClaw 一键安装', link: '/cn/adopt/chapter1' },
-                    { text: '第2章 OpenClaw 手动安装', link: '/cn/adopt/chapter2' },
-                    { text: '第3章 初始配置向导', link: '/cn/adopt/chapter3' },
+                    { text: '第1章 AutoClaw 一键安装', link: '/hello-claw/cn/adopt/chapter1' },
+                    { text: '第2章 OpenClaw 手动安装', link: '/hello-claw/cn/adopt/chapter2' },
+                    { text: '第3章 初始配置向导', link: '/hello-claw/cn/adopt/chapter3' },
                   ]
                 },
                 {
                   text: '🟢 核心配置',
                   collapsed: false,
                   items: [
-                    { text: '第4章 聊天平台接入', link: '/cn/adopt/chapter4' },
-                    { text: '第5章 模型管理', link: '/cn/adopt/chapter5' },
-                    { text: '第6章 智能体管理', link: '/cn/adopt/chapter6' },
+                    { text: '第4章 聊天平台接入', link: '/hello-claw/cn/adopt/chapter4' },
+                    { text: '第5章 模型管理', link: '/hello-claw/cn/adopt/chapter5' },
+                    { text: '第6章 智能体管理', link: '/hello-claw/cn/adopt/chapter6' },
                   ]
                 },
                 {
                   text: '🟡 扩展运维',
                   collapsed: false,
                   items: [
-                    { text: '第7章 工具与定时任务', link: '/cn/adopt/chapter7' },
-                    { text: '第8章 网关运维', link: '/cn/adopt/chapter8' },
-                    { text: '第9章 远程访问与网络', link: '/cn/adopt/chapter9' },
+                    { text: '第7章 工具与定时任务', link: '/hello-claw/cn/adopt/chapter7' },
+                    { text: '第8章 网关运维', link: '/hello-claw/cn/adopt/chapter8' },
+                    { text: '第9章 远程访问与网络', link: '/hello-claw/cn/adopt/chapter9' },
                   ]
                 },
                 {
                   text: '🔴 安全与客户端',
                   collapsed: false,
                   items: [
-                    { text: '第10章 安全防护与威胁模型', link: '/cn/adopt/chapter10' },
-                    { text: '第11章 Web 界面与客户端', link: '/cn/adopt/chapter11' },
+                    { text: '第10章 安全防护与威胁模型', link: '/hello-claw/cn/adopt/chapter10' },
+                    { text: '第11章 Web 界面与客户端', link: '/hello-claw/cn/adopt/chapter11' },
                   ]
                 },
               ]
@@ -97,54 +107,54 @@ export default defineConfig({
             {
               text: '附录',
               items: [
-                { text: '附录 A：学习资源汇总', link: '/cn/appendix/appendix-a' },
-                { text: '附录 B：社区之声与生态展望', link: '/cn/appendix/appendix-b' },
-                { text: '附录 C：类 Claw 方案对比与选型', link: '/cn/appendix/appendix-c' },
-                { text: '附录 D：技能开发与发布指南', link: '/cn/appendix/appendix-d' },
-                { text: '附录 E：模型提供商选型指南', link: '/cn/appendix/appendix-e' },
-                { text: '附录 F：命令速查表', link: '/cn/appendix/appendix-f' },
-                { text: '附录 G：配置文件详解', link: '/cn/appendix/appendix-g' }
+                { text: '附录 A：学习资源汇总', link: '/hello-claw/cn/appendix/appendix-a' },
+                { text: '附录 B：社区之声与生态展望', link: '/hello-claw/cn/appendix/appendix-b' },
+                { text: '附录 C：类 Claw 方案对比与选型', link: '/hello-claw/cn/appendix/appendix-c' },
+                { text: '附录 D：技能开发与发布指南', link: '/hello-claw/cn/appendix/appendix-d' },
+                { text: '附录 E：模型提供商选型指南', link: '/hello-claw/cn/appendix/appendix-e' },
+                { text: '附录 F：命令速查表', link: '/hello-claw/cn/appendix/appendix-f' },
+                { text: '附录 G：配置文件详解', link: '/hello-claw/cn/appendix/appendix-g' }
               ]
             }
           ],
-          '/cn/appendix/': [
+          '/hello-claw/cn/appendix/': [
             {
               text: '领养 Claw（使用篇）',
               items: [
-                { text: '写在开头', link: '/cn/adopt/intro' },
+                { text: '写在开头', link: '/hello-claw/cn/adopt/intro' },
                 {
                   text: '🔵 安装',
                   collapsed: false,
                   items: [
-                    { text: '第1章 AutoClaw 一键安装', link: '/cn/adopt/chapter1' },
-                    { text: '第2章 OpenClaw 手动安装', link: '/cn/adopt/chapter2' },
-                    { text: '第3章 初始配置向导', link: '/cn/adopt/chapter3' },
+                    { text: '第1章 AutoClaw 一键安装', link: '/hello-claw/cn/adopt/chapter1' },
+                    { text: '第2章 OpenClaw 手动安装', link: '/hello-claw/cn/adopt/chapter2' },
+                    { text: '第3章 初始配置向导', link: '/hello-claw/cn/adopt/chapter3' },
                   ]
                 },
                 {
                   text: '🟢 核心配置',
                   collapsed: false,
                   items: [
-                    { text: '第4章 聊天平台接入', link: '/cn/adopt/chapter4' },
-                    { text: '第5章 模型管理', link: '/cn/adopt/chapter5' },
-                    { text: '第6章 智能体管理', link: '/cn/adopt/chapter6' },
+                    { text: '第4章 聊天平台接入', link: '/hello-claw/cn/adopt/chapter4' },
+                    { text: '第5章 模型管理', link: '/hello-claw/cn/adopt/chapter5' },
+                    { text: '第6章 智能体管理', link: '/hello-claw/cn/adopt/chapter6' },
                   ]
                 },
                 {
                   text: '🟡 扩展运维',
                   collapsed: false,
                   items: [
-                    { text: '第7章 工具与定时任务', link: '/cn/adopt/chapter7' },
-                    { text: '第8章 网关运维', link: '/cn/adopt/chapter8' },
-                    { text: '第9章 远程访问与网络', link: '/cn/adopt/chapter9' },
+                    { text: '第7章 工具与定时任务', link: '/hello-claw/cn/adopt/chapter7' },
+                    { text: '第8章 网关运维', link: '/hello-claw/cn/adopt/chapter8' },
+                    { text: '第9章 远程访问与网络', link: '/hello-claw/cn/adopt/chapter9' },
                   ]
                 },
                 {
                   text: '🔴 安全与客户端',
                   collapsed: false,
                   items: [
-                    { text: '第10章 安全防护与威胁模型', link: '/cn/adopt/chapter10' },
-                    { text: '第11章 Web 界面与客户端', link: '/cn/adopt/chapter11' },
+                    { text: '第10章 安全防护与威胁模型', link: '/hello-claw/cn/adopt/chapter10' },
+                    { text: '第11章 Web 界面与客户端', link: '/hello-claw/cn/adopt/chapter11' },
                   ]
                 },
               ]
@@ -152,57 +162,95 @@ export default defineConfig({
             {
               text: '附录',
               items: [
-                { text: '附录 A：学习资源汇总', link: '/cn/appendix/appendix-a' },
-                { text: '附录 B：社区之声与生态展望', link: '/cn/appendix/appendix-b' },
-                { text: '附录 C：类 Claw 方案对比与选型', link: '/cn/appendix/appendix-c' },
-                { text: '附录 D：技能开发与发布指南', link: '/cn/appendix/appendix-d' },
-                { text: '附录 E：模型提供商选型指南', link: '/cn/appendix/appendix-e' },
-                { text: '附录 F：命令速查表', link: '/cn/appendix/appendix-f' },
-                { text: '附录 G：配置文件详解', link: '/cn/appendix/appendix-g' }
+                { text: '附录 A：学习资源汇总', link: '/hello-claw/cn/appendix/appendix-a' },
+                { text: '附录 B：社区之声与生态展望', link: '/hello-claw/cn/appendix/appendix-b' },
+                { text: '附录 C：类 Claw 方案对比与选型', link: '/hello-claw/cn/appendix/appendix-c' },
+                { text: '附录 D：技能开发与发布指南', link: '/hello-claw/cn/appendix/appendix-d' },
+                { text: '附录 E：模型提供商选型指南', link: '/hello-claw/cn/appendix/appendix-e' },
+                { text: '附录 F：命令速查表', link: '/hello-claw/cn/appendix/appendix-f' },
+                { text: '附录 G：配置文件详解', link: '/hello-claw/cn/appendix/appendix-g' }
               ]
             }
           ],
-          '/cn/build/': [
+          '/hello-claw/cn/build/': [
             {
               text: '构建 Claw（开发篇）',
               items: [
-                { text: '写在开头', link: '/cn/build/' },
+                { text: '写在开头', link: '/hello-claw/cn/build/' },
                 {
                   text: '🔵 OpenClaw 内部拆解',
                   collapsed: false,
                   items: [
-                    { text: '第1章 架构设计哲学', link: '/cn/build/chapter1' },
-                    { text: '第2章 ReAct 循环', link: '/cn/build/chapter2' },
-                    { text: '第3章 提示词系统', link: '/cn/build/chapter3' },
-                    { text: '第4章 工具系统', link: '/cn/build/chapter4' },
-                    { text: '第5章 消息循环与事件驱动', link: '/cn/build/chapter5' },
-                    { text: '第6章 统一网关', link: '/cn/build/chapter6' },
-                    { text: '第7章 安全沙箱', link: '/cn/build/chapter7' },
+                    { text: '第1章 架构设计哲学', link: '/hello-claw/cn/build/chapter1' },
+                    { text: '第2章 ReAct 循环', link: '/hello-claw/cn/build/chapter2' },
+                    { text: '第3章 提示词系统', link: '/hello-claw/cn/build/chapter3' },
+                    { text: '第4章 工具系统', link: '/hello-claw/cn/build/chapter4' },
+                    { text: '第5章 消息循环与事件驱动', link: '/hello-claw/cn/build/chapter5' },
+                    { text: '第6章 统一网关', link: '/hello-claw/cn/build/chapter6' },
+                    { text: '第7章 安全沙箱', link: '/hello-claw/cn/build/chapter7' },
                   ]
                 },
                 {
                   text: '🟢 定制方案',
                   collapsed: false,
                   items: [
-                    { text: '第8章 轻量化方案', link: '/cn/build/chapter8' },
-                    { text: '第9章 安全加固方案', link: '/cn/build/chapter9' },
-                    { text: '第10章 硬件方案', link: '/cn/build/chapter10' },
+                    { text: '第8章 轻量化方案', link: '/hello-claw/cn/build/chapter8' },
+                    { text: '第9章 安全加固方案', link: '/hello-claw/cn/build/chapter9' },
+                    { text: '第10章 硬件方案', link: '/hello-claw/cn/build/chapter10' },
                   ]
                 },
               ]
             }
           ],
-          '/cn/university/': [
+          '/hello-claw/cn/university/': [
             {
               text: '龙虾大学',
               items: [
-                { text: '写在开头', link: '/cn/university/intro' },
-                { text: 'Skills 选修指南', link: '/cn/university/' },
-                { text: '邮箱助手实战（163）', link: '/cn/university/email-assistant/' },
-                { text: '多智能体协作（HiClaw）', link: '/cn/university/multi-claw-hiclaw/' },
-                { text: '安全防护清单', link: '/cn/university/security/' },
-                { text: 'Vibe Coding 实战', link: '/cn/university/vibe-coding/' },
-                { text: 'Agent 论文推送助手', link: '/cn/university/paper-assistant/' },
+                { text: '写在开头', link: '/hello-claw/cn/university/intro' },
+                { text: 'Skills 选修指南', link: '/hello-claw/cn/university/' },
+                { text: '邮箱助手实战（163）', link: '/hello-claw/cn/university/email-assistant/' },
+                { text: '多智能体协作（HiClaw）', link: '/hello-claw/cn/university/multi-claw-hiclaw/' },
+                { text: '安全防护清单', link: '/hello-claw/cn/university/security/' },
+                { text: 'Vibe Coding 实战', link: '/hello-claw/cn/university/vibe-coding/' },
+                { text: 'Agent 论文推送助手', link: '/hello-claw/cn/university/paper-assistant/' },
+              ]
+            }
+          ],
+          '/claude-code/': [
+            {
+              text: 'Claude Code 教程',
+              items: [
+                { text: '第1章 完整安装指南', link: '/claude-code/01-Claude-Code完整安装指南' },
+                { text: '第2章 基础使用完整指南', link: '/claude-code/02-基础使用完整指南' },
+                { text: '第3章 Commands系统完整指南', link: '/claude-code/03-Commands系统完整指南' },
+                { text: '第4章 MCP集成完整指南', link: '/claude-code/04-MCP集成完整指南' },
+                { text: '第5章 Hooks系统完整指南', link: '/claude-code/05-Hooks系统完整指南' },
+                { text: '第6章 Subagent子代理完整指南', link: '/claude-code/06-Subagent子代理完整指南' },
+                { text: '第7章 Skills定制完整指南', link: '/claude-code/07-Skills定制完整指南' },
+                { text: '第8章 Plugins生态完整指南', link: '/claude-code/08-Plugins生态完整指南' },
+                { text: '第9章 Agent-SDK完整指南', link: '/claude-code/09-Agent-SDK完整指南' },
+                { text: '第10章 综合实战完整指南', link: '/claude-code/10-综合实战完整指南' },
+                { text: '第11章 企业实战完整指南', link: '/claude-code/11-企业实战完整指南' },
+                { text: '快速导航卡', link: '/claude-code/快速导航卡' },
+              ]
+            }
+          ],
+          '/openclaw-guide/': [
+            {
+              text: 'OpenClaw 指南',
+              items: [
+                { text: '阅读指南', link: '/openclaw-guide/00-阅读指南' },
+                { text: '第1章 项目介绍', link: '/openclaw-guide/01-OpenClaw项目介绍' },
+                { text: '第2章 安装部署指南', link: '/openclaw-guide/02-安装部署指南' },
+                { text: '第3章 快速开始指南', link: '/openclaw-guide/03-快速开始指南' },
+                { text: '第4章 模型配置指南', link: '/openclaw-guide/04-模型配置指南' },
+                { text: '第5章 消息平台接入指南', link: '/openclaw-guide/05-消息平台接入指南' },
+                { text: '第6章 技能系统指南', link: '/openclaw-guide/06-技能系统指南' },
+                { text: '第7章 记忆系统指南', link: '/openclaw-guide/07-记忆系统指南' },
+                { text: '第8章 多Agent协作指南', link: '/openclaw-guide/08-多Agent协作指南' },
+                { text: '第9章 Docker部署指南', link: '/openclaw-guide/09-Docker部署指南' },
+                { text: '第10章 安全配置指南', link: '/openclaw-guide/10-安全配置指南' },
+                { text: '第11章 常见问题FAQ', link: '/openclaw-guide/11-常见问题FAQ' },
               ]
             }
           ]
@@ -227,46 +275,46 @@ export default defineConfig({
       themeConfig: {
         logo: '🦞',
         nav: [
-          { text: 'Adopt', link: '/en/adopt/intro' },
-          { text: 'Build', link: '/en/build/' },
+          { text: 'Adopt', link: '/hello-claw/en/adopt/intro' },
+          { text: 'Build', link: '/hello-claw/en/build/' },
           { text: 'GitHub', link: 'https://github.com/datawhalechina/hello-claw' },
         ],
         sidebar: {
-          '/en/adopt/': [
+          '/hello-claw/en/adopt/': [
             {
               text: 'Adopt Claw (User Guide)',
               items: [
-                { text: 'Chapter 0: Introduction', link: '/en/adopt/intro' },
-                { text: 'Chapter 1: Quick Start', link: '/en/adopt/chapter1' },
-                { text: 'Chapter 2: Understanding OpenClaw', link: '/en/adopt/chapter2' },
-                { text: 'Chapter 3: Mobile Access', link: '/en/adopt/chapter3' },
-                { text: 'Chapter 4: Automation Basics', link: '/en/adopt/chapter4' },
-                { text: 'Chapter 5: Skills System', link: '/en/adopt/chapter5' },
-                { text: 'Chapter 6: External Services', link: '/en/adopt/chapter6' },
-                { text: 'Chapter 7: Production Deployment', link: '/en/adopt/chapter7' },
-                { text: 'Chapter 8: Multi-Model & Cost', link: '/en/adopt/chapter8' },
-                { text: 'Chapter 9: Personal Assistant', link: '/en/adopt/chapter9' },
-                { text: 'Chapter 10: Content Creation', link: '/en/adopt/chapter10' },
-                { text: 'Chapter 11: Developer Productivity', link: '/en/adopt/chapter11' },
-                { text: 'Chapter 12: Troubleshooting', link: '/en/adopt/chapter12' }
+                { text: 'Chapter 0: Introduction', link: '/hello-claw/en/adopt/chapter0/' },
+                { text: 'Chapter 1: Quick Start', link: '/hello-claw/en/adopt/chapter1' },
+                { text: 'Chapter 2: Understanding OpenClaw', link: '/hello-claw/en/adopt/chapter2' },
+                { text: 'Chapter 3: Mobile Access', link: '/hello-claw/en/adopt/chapter3' },
+                { text: 'Chapter 4: Automation Basics', link: '/hello-claw/en/adopt/chapter4' },
+                { text: 'Chapter 5: Skills System', link: '/hello-claw/en/adopt/chapter5' },
+                { text: 'Chapter 6: External Services', link: '/hello-claw/en/adopt/chapter6' },
+                { text: 'Chapter 7: Production Deployment', link: '/hello-claw/en/adopt/chapter7' },
+                { text: 'Chapter 8: Multi-Model & Cost', link: '/hello-claw/en/adopt/chapter8' },
+                { text: 'Chapter 9: Personal Assistant', link: '/hello-claw/en/adopt/chapter9' },
+                { text: 'Chapter 10: Content Creation', link: '/hello-claw/en/adopt/chapter10' },
+                { text: 'Chapter 11: Developer Productivity', link: '/hello-claw/en/adopt/chapter11' },
+                { text: 'Chapter 12: Troubleshooting', link: '/hello-claw/en/adopt/chapter12' }
               ]
             }
           ],
-          '/en/build/': [
+          '/hello-claw/en/build/': [
             {
               text: 'Build Claw (Developer Guide)',
               items: [
-                { text: 'Introduction', link: '/en/build/' },
-                { text: 'Chapter 1: Architecture Philosophy', link: '/en/build/chapter1' },
-                { text: 'Chapter 2: ReAct Loop', link: '/en/build/chapter2' },
-                { text: 'Chapter 3: Prompt System', link: '/en/build/chapter3' },
-                { text: 'Chapter 4: Tool System', link: '/en/build/chapter4' },
-                { text: 'Chapter 5: Message Loop & Events', link: '/en/build/chapter5' },
-                { text: 'Chapter 6: Unified Gateway', link: '/en/build/chapter6' },
-                { text: 'Chapter 7: Security Sandbox', link: '/en/build/chapter7' },
-                { text: 'Chapter 8: Lightweight Solutions', link: '/en/build/chapter8' },
-                { text: 'Chapter 9: Security Hardening', link: '/en/build/chapter9' },
-                { text: 'Chapter 10: Hardware Solutions', link: '/en/build/chapter10' },
+                { text: 'Introduction', link: '/hello-claw/en/build/' },
+                { text: 'Chapter 1: Architecture Philosophy', link: '/hello-claw/en/build/chapter1' },
+                { text: 'Chapter 2: ReAct Loop', link: '/hello-claw/en/build/chapter2' },
+                { text: 'Chapter 3: Prompt System', link: '/hello-claw/en/build/chapter3' },
+                { text: 'Chapter 4: Tool System', link: '/hello-claw/en/build/chapter4' },
+                { text: 'Chapter 5: Message Loop & Events', link: '/hello-claw/en/build/chapter5' },
+                { text: 'Chapter 6: Unified Gateway', link: '/hello-claw/en/build/chapter6' },
+                { text: 'Chapter 7: Security Sandbox', link: '/hello-claw/en/build/chapter7' },
+                { text: 'Chapter 8: Lightweight Solutions', link: '/hello-claw/en/build/chapter8' },
+                { text: 'Chapter 9: Security Hardening', link: '/hello-claw/en/build/chapter9' },
+                { text: 'Chapter 10: Hardware Solutions', link: '/hello-claw/en/build/chapter10' },
               ]
             }
           ]
