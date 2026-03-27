@@ -3,7 +3,7 @@
     "@tailwindcss/vite": "^4.2.1",
     "markdown-it-mathjax3": "^4.3.2",
     "tailwindcss": "^4.2.1",
-    "vitepress": "^2.0.0-alpha.15"
+    "vitepress": "2.0.0-alpha.17"
   },
   "scripts": {
     "dev": "vitepress dev docs",
