@@ -1,19 +1,16 @@
 {
+  "name": "tasarinan-docs",
+  "private": true,
   "devDependencies": {
-    "@tailwindcss/vite": "^4.2.1",
-    "markdown-it-mathjax3": "^4.3.2",
-    "tailwindcss": "^4.2.1",
     "vitepress": "2.0.0-alpha.17"
   },
   "scripts": {
-    "dev": "vitepress dev docs",
-    "build": "vitepress build docs",
-    "preview": "vitepress preview docs",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
+    "docs:gen": "node scripts/generate-vitepress-structure.mjs",
+    "dev": "npm run docs:dev",
+    "build": "npm run docs:build",
+    "preview": "npm run docs:preview",
+    "docs:dev": "npm run docs:gen && vitepress dev docs",
+    "docs:build": "npm run docs:gen && vitepress build docs",
     "docs:preview": "vitepress preview docs"
-  },
-  "dependencies": {
-    "vitepress-plugin-image-viewer": "^1.1.6"
   }
 }
