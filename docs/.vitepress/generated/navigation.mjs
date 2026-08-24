@@ -4,7 +4,7 @@
 export const nav = [
   {
     "text": "agent-architect-insight",
-    "link": "/agent-architect-insight/2026-08/Agent架构师-Day01-任务拆解与目标规划"
+    "link": "/agent-architect-insight/2026-08/Agent-01-任务规划与执行框架"
   }
 ]
 
@@ -15,128 +15,20 @@ export const sidebar = {
       "collapsed": false,
       "items": [
         {
-          "text": "Agent架构师 Day01 任务拆解与目标规划",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day01-任务拆解与目标规划"
+          "text": "Agent 01 任务规划与执行框架",
+          "link": "/agent-architect-insight/2026-08/Agent-01-任务规划与执行框架"
         },
         {
-          "text": "Agent架构师 Day02 角色分工与执行闭环",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day02-角色分工与执行闭环"
+          "text": "Agent 02 协作机制与流程治理",
+          "link": "/agent-architect-insight/2026-08/Agent-02-协作机制与流程治理"
         },
         {
-          "text": "Agent架构师 Day03 智能体状态建模方法",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day03-智能体状态建模方法"
+          "text": "Agent 03 工具调用与路由容错",
+          "link": "/agent-architect-insight/2026-08/Agent-03-工具调用与路由容错"
         },
         {
-          "text": "Agent架构师 Day04 复杂任务的分层规划",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day04-复杂任务的分层规划"
-        },
-        {
-          "text": "Agent架构师 Day05 智能体与agent",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day05-智能体与agent"
-        },
-        {
-          "text": "Agent架构师 Day06 智能体与agent2",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day06-智能体与agent2"
-        },
-        {
-          "text": "Agent架构师 Day07 智能体与agent3",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day07-智能体与agent3"
-        },
-        {
-          "text": "Agent架构师 Day08 agent与智能体",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day08-agent与智能体"
-        },
-        {
-          "text": "Agent架构师 Day09 agent与智能体2",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day09-agent与智能体2"
-        },
-        {
-          "text": "Agent架构师 Day10 agent与智能体3",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day10-agent与智能体3"
-        },
-        {
-          "text": "Agent架构师 Day11 agent与智能体4",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day11-agent与智能体4"
-        },
-        {
-          "text": "Agent架构师 Day12 智能体与agent4",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day12-智能体与agent4"
-        },
-        {
-          "text": "Agent架构师 Day13 智能体与agent5",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day13-智能体与agent5"
-        },
-        {
-          "text": "Agent架构师 Day14 智能体与agent6",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day14-智能体与agent6"
-        },
-        {
-          "text": "Agent架构师 Day15 智能体与agent7",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day15-智能体与agent7"
-        },
-        {
-          "text": "Agent架构师 Day16 智能体与agent8",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day16-智能体与agent8"
-        },
-        {
-          "text": "Agent架构师 Day17 智能体与agent9",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day17-智能体与agent9"
-        },
-        {
-          "text": "Agent架构师 Day18 agent与智能体5",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day18-agent与智能体5"
-        },
-        {
-          "text": "Agent架构师 Day19 智能体与agent10",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day19-智能体与agent10"
-        },
-        {
-          "text": "Agent架构师 Day20 智能体与agent11",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day20-智能体与agent11"
-        },
-        {
-          "text": "Agent架构师 Day21 agent与智能体6",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day21-agent与智能体6"
-        },
-        {
-          "text": "Agent架构师 Day22 agent与智能体7",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day22-agent与智能体7"
-        },
-        {
-          "text": "Agent架构师 Day23 规划与agent",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day23-规划与agent"
-        },
-        {
-          "text": "Agent架构师 Day24 智能体与agent12",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day24-智能体与agent12"
-        },
-        {
-          "text": "Agent架构师 Day25 工具调用协议设计",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day25-工具调用协议设计"
-        },
-        {
-          "text": "Agent架构师 Day26 工作流路由与容错机制",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day26-工作流路由与容错机制"
-        },
-        {
-          "text": "Agent架构师 Day27 函数调用参数治理",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day27-函数调用参数治理"
-        },
-        {
-          "text": "Agent架构师 Day28 多智能体协作机制",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day28-多智能体协作机制"
-        },
-        {
-          "text": "Agent架构师 Day29 短期与长期记忆协同",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day29-短期与长期记忆协同"
-        },
-        {
-          "text": "Agent架构师 Day30 评测基线与监控体系",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day30-评测基线与监控体系"
-        },
-        {
-          "text": "Agent架构师 Day31 安全护栏与风险隔离",
-          "link": "/agent-architect-insight/2026-08/Agent架构师-Day31-安全护栏与风险隔离"
+          "text": "Agent 04 记忆评测与安全护栏",
+          "link": "/agent-architect-insight/2026-08/Agent-04-记忆评测与安全护栏"
         }
       ]
     },
@@ -145,420 +37,32 @@ export const sidebar = {
       "collapsed": false,
       "items": [
         {
-          "text": "Agent架构师 Day01 参数规模与能力边界",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day01-参数规模与能力边界"
+          "text": "LLM 01 上下文工程与预算起步",
+          "link": "/agent-architect-insight/2026-07/LLM-01-上下文工程与预算起步"
         },
         {
-          "text": "Agent架构师 Day02 上下文窗口与Token预算",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day02-上下文窗口与Token预算"
+          "text": "LLM 02 上下文稳定性与路由控制",
+          "link": "/agent-architect-insight/2026-07/LLM-02-上下文稳定性与路由控制"
         },
         {
-          "text": "Agent架构师 Day03 模型架构与推理成本平衡",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day03-模型架构与推理成本平衡"
+          "text": "LLM 03 Token治理与模型分层",
+          "link": "/agent-architect-insight/2026-07/LLM-03-Token治理与模型分层"
         },
         {
-          "text": "Agent架构师 Day04 推理质量与延迟协同优化",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day04-推理质量与延迟协同优化"
+          "text": "LLM 04 参数策略与推理能力进阶",
+          "link": "/agent-architect-insight/2026-07/LLM-04-参数策略与推理能力进阶"
         },
         {
-          "text": "Agent架构师 Day05 llm与上下文",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day05-llm与上下文"
+          "text": "LLM 05 Prompt结构化与迭代方法",
+          "link": "/agent-architect-insight/2026-07/LLM-05-Prompt结构化与迭代方法"
         },
         {
-          "text": "Agent架构师 Day06 llm与token",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day06-llm与token"
+          "text": "LLM 06 RAG检索增强全链路",
+          "link": "/agent-architect-insight/2026-07/LLM-06-RAG检索增强全链路"
         },
         {
-          "text": "Agent架构师 Day07 llm与上下文2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day07-llm与上下文2"
-        },
-        {
-          "text": "Agent架构师 Day08 llm与token2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day08-llm与token2"
-        },
-        {
-          "text": "Agent架构师 Day09 llm与协作",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day09-llm与协作"
-        },
-        {
-          "text": "Agent架构师 Day10 llm与上下文3",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day10-llm与上下文3"
-        },
-        {
-          "text": "Agent架构师 Day100 微调与dpo",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day100-微调与dpo"
-        },
-        {
-          "text": "Agent架构师 Day101 微调与sft2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day101-微调与sft2"
-        },
-        {
-          "text": "Agent架构师 Day102 微调与sft3",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day102-微调与sft3"
-        },
-        {
-          "text": "Agent架构师 Day103 微调与对齐",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day103-微调与对齐"
-        },
-        {
-          "text": "Agent架构师 Day104 微调与对齐2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day104-微调与对齐2"
-        },
-        {
-          "text": "Agent架构师 Day11 上下文与llm",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day11-上下文与llm"
-        },
-        {
-          "text": "Agent架构师 Day12 上下文与llm2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day12-上下文与llm2"
-        },
-        {
-          "text": "Agent架构师 Day13 上下文与llm3",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day13-上下文与llm3"
-        },
-        {
-          "text": "Agent架构师 Day14 llm与上下文4",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day14-llm与上下文4"
-        },
-        {
-          "text": "Agent架构师 Day15 上下文与llm4",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day15-上下文与llm4"
-        },
-        {
-          "text": "Agent架构师 Day16 llm与上下文5",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day16-llm与上下文5"
-        },
-        {
-          "text": "Agent架构师 Day17 llm与大模型",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day17-llm与大模型"
-        },
-        {
-          "text": "Agent架构师 Day18 大模型与上下文",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day18-大模型与上下文"
-        },
-        {
-          "text": "Agent架构师 Day19 llm与上下文6",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day19-llm与上下文6"
-        },
-        {
-          "text": "Agent架构师 Day20 llm与上下文7",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day20-llm与上下文7"
-        },
-        {
-          "text": "Agent架构师 Day21 llm与上下文8",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day21-llm与上下文8"
-        },
-        {
-          "text": "Agent架构师 Day22 llm与上下文9",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day22-llm与上下文9"
-        },
-        {
-          "text": "Agent架构师 Day23 llm与上下文10",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day23-llm与上下文10"
-        },
-        {
-          "text": "Agent架构师 Day24 llm与上下文11",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day24-llm与上下文11"
-        },
-        {
-          "text": "Agent架构师 Day25 上下文与llm5",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day25-上下文与llm5"
-        },
-        {
-          "text": "Agent架构师 Day26 llm与上下文12",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day26-llm与上下文12"
-        },
-        {
-          "text": "Agent架构师 Day27 上下文与llm6",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day27-上下文与llm6"
-        },
-        {
-          "text": "Agent架构师 Day28 llm与上下文13",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day28-llm与上下文13"
-        },
-        {
-          "text": "Agent架构师 Day29 llm与上下文14",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day29-llm与上下文14"
-        },
-        {
-          "text": "Agent架构师 Day30 llm与上下文15",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day30-llm与上下文15"
-        },
-        {
-          "text": "Agent架构师 Day31 llm与token3",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day31-llm与token3"
-        },
-        {
-          "text": "Agent架构师 Day32 llm与上下文16",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day32-llm与上下文16"
-        },
-        {
-          "text": "Agent架构师 Day33 llm与token4",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day33-llm与token4"
-        },
-        {
-          "text": "Agent架构师 Day34 token与上下文",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day34-token与上下文"
-        },
-        {
-          "text": "Agent架构师 Day35 llm与上下文17",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day35-llm与上下文17"
-        },
-        {
-          "text": "Agent架构师 Day36 llm与推理能力",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day36-llm与推理能力"
-        },
-        {
-          "text": "Agent架构师 Day37 llm与推理能力2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day37-llm与推理能力2"
-        },
-        {
-          "text": "Agent架构师 Day38 上下文与llm7",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day38-上下文与llm7"
-        },
-        {
-          "text": "Agent架构师 Day39 上下文与llm8",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day39-上下文与llm8"
-        },
-        {
-          "text": "Agent架构师 Day40 上下文与llm9",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day40-上下文与llm9"
-        },
-        {
-          "text": "Agent架构师 Day41 llm与上下文18",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day41-llm与上下文18"
-        },
-        {
-          "text": "Agent架构师 Day42 llm与上下文19",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day42-llm与上下文19"
-        },
-        {
-          "text": "Agent架构师 Day43 llm与token5",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day43-llm与token5"
-        },
-        {
-          "text": "Agent架构师 Day44 token与llm",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day44-token与llm"
-        },
-        {
-          "text": "Agent架构师 Day45 llm与上下文20",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day45-llm与上下文20"
-        },
-        {
-          "text": "Agent架构师 Day46 llm与token6",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day46-llm与token6"
-        },
-        {
-          "text": "Agent架构师 Day47 llm与token7",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day47-llm与token7"
-        },
-        {
-          "text": "Agent架构师 Day48 llm与大模型2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day48-llm与大模型2"
-        },
-        {
-          "text": "Agent架构师 Day49 llm与token8",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day49-llm与token8"
-        },
-        {
-          "text": "Agent架构师 Day50 llm与参数",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day50-llm与参数"
-        },
-        {
-          "text": "Agent架构师 Day51 token与llm2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day51-token与llm2"
-        },
-        {
-          "text": "Agent架构师 Day52 llm与token9",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day52-llm与token9"
-        },
-        {
-          "text": "Agent架构师 Day53 上下文与token",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day53-上下文与token"
-        },
-        {
-          "text": "Agent架构师 Day54 token与上下文2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day54-token与上下文2"
-        },
-        {
-          "text": "Agent架构师 Day55 token与llm3",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day55-token与llm3"
-        },
-        {
-          "text": "Agent架构师 Day56 token与llm4",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day56-token与llm4"
-        },
-        {
-          "text": "Agent架构师 Day57 token与llm5",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day57-token与llm5"
-        },
-        {
-          "text": "Agent架构师 Day58 token与llm6",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day58-token与llm6"
-        },
-        {
-          "text": "Agent架构师 Day59 llm与token10",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day59-llm与token10"
-        },
-        {
-          "text": "Agent架构师 Day60 token与大模型",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day60-token与大模型"
-        },
-        {
-          "text": "Agent架构师 Day61 token与上下文3",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day61-token与上下文3"
-        },
-        {
-          "text": "Agent架构师 Day62 token与参数",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day62-token与参数"
-        },
-        {
-          "text": "Agent架构师 Day63 token与参数2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day63-token与参数2"
-        },
-        {
-          "text": "Agent架构师 Day64 llm与上下文21",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day64-llm与上下文21"
-        },
-        {
-          "text": "Agent架构师 Day65 token与上下文4",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day65-token与上下文4"
-        },
-        {
-          "text": "Agent架构师 Day66 token与上下文5",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day66-token与上下文5"
-        },
-        {
-          "text": "Agent架构师 Day67 大模型与llm",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day67-大模型与llm"
-        },
-        {
-          "text": "Agent架构师 Day68 llm与大模型3",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day68-llm与大模型3"
-        },
-        {
-          "text": "Agent架构师 Day69 llm与参数2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day69-llm与参数2"
-        },
-        {
-          "text": "Agent架构师 Day70 llm与token11",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day70-llm与token11"
-        },
-        {
-          "text": "Agent架构师 Day71 llm与大模型4",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day71-llm与大模型4"
-        },
-        {
-          "text": "Agent架构师 Day72 llm与参数3",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day72-llm与参数3"
-        },
-        {
-          "text": "Agent架构师 Day73 llm与token12",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day73-llm与token12"
-        },
-        {
-          "text": "Agent架构师 Day74 token与llm7",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day74-token与llm7"
-        },
-        {
-          "text": "Agent架构师 Day75 token与上下文6",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day75-token与上下文6"
-        },
-        {
-          "text": "Agent架构师 Day76 提示词结构化设计",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day76-提示词结构化设计"
-        },
-        {
-          "text": "Agent架构师 Day77 推理提示与约束策略",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day77-推理提示与约束策略"
-        },
-        {
-          "text": "Agent架构师 Day78 多轮提示稳定性优化",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day78-多轮提示稳定性优化"
-        },
-        {
-          "text": "Agent架构师 Day79 Prompt评测与迭代方法",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day79-Prompt评测与迭代方法"
-        },
-        {
-          "text": "Agent架构师 Day80 prompt与system prompt",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day80-prompt与system-prompt"
-        },
-        {
-          "text": "Agent架构师 Day81 prompt与提示词",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day81-prompt与提示词"
-        },
-        {
-          "text": "Agent架构师 Day82 RAG检索链路设计",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day82-RAG检索链路设计"
-        },
-        {
-          "text": "Agent架构师 Day83 分块召回与重排优化",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day83-分块召回与重排优化"
-        },
-        {
-          "text": "Agent架构师 Day84 知识库构建与更新策略",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day84-知识库构建与更新策略"
-        },
-        {
-          "text": "Agent架构师 Day85 RAG评测与问题定位",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day85-RAG评测与问题定位"
-        },
-        {
-          "text": "Agent架构师 Day86 rag与检索增强",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day86-rag与检索增强"
-        },
-        {
-          "text": "Agent架构师 Day87 rag与知识库",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day87-rag与知识库"
-        },
-        {
-          "text": "Agent架构师 Day88 rag与检索增强2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day88-rag与检索增强2"
-        },
-        {
-          "text": "Agent架构师 Day89 rag与检索增强3",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day89-rag与检索增强3"
-        },
-        {
-          "text": "Agent架构师 Day90 rag与检索增强4",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day90-rag与检索增强4"
-        },
-        {
-          "text": "Agent架构师 Day91 rag与知识库2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day91-rag与知识库2"
-        },
-        {
-          "text": "Agent架构师 Day92 rag与chunk",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day92-rag与chunk"
-        },
-        {
-          "text": "Agent架构师 Day93 rag与chunk2",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day93-rag与chunk2"
-        },
-        {
-          "text": "Agent架构师 Day94 rag与检索增强5",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day94-rag与检索增强5"
-        },
-        {
-          "text": "Agent架构师 Day95 微调数据与对齐策略",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day95-微调数据与对齐策略"
-        },
-        {
-          "text": "Agent架构师 Day96 量化蒸馏与部署优化",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day96-量化蒸馏与部署优化"
-        },
-        {
-          "text": "Agent架构师 Day97 模型上线与回滚机制",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day97-模型上线与回滚机制"
-        },
-        {
-          "text": "Agent架构师 Day98 成本约束下的效果提升",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day98-成本约束下的效果提升"
-        },
-        {
-          "text": "Agent架构师 Day99 微调与sft",
-          "link": "/agent-architect-insight/2026-07/Agent架构师-Day99-微调与sft"
+          "text": "LLM 07 微调对齐与部署优化",
+          "link": "/agent-architect-insight/2026-07/LLM-07-微调对齐与部署优化"
         }
       ]
     },
@@ -567,84 +71,16 @@ export const sidebar = {
       "collapsed": false,
       "items": [
         {
-          "text": "Agent架构师 Day01 文本预处理与语料组织",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day01-文本预处理与语料组织"
+          "text": "NLP 01 语料基础与预处理体系",
+          "link": "/agent-architect-insight/2026-06/NLP-01-语料基础与预处理体系"
         },
         {
-          "text": "Agent架构师 Day02 词法句法基础能力构建",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day02-词法句法基础能力构建"
+          "text": "NLP 02 语义向量与Embedding工程",
+          "link": "/agent-architect-insight/2026-06/NLP-02-语义向量与Embedding工程"
         },
         {
-          "text": "Agent架构师 Day03 语料清洗与标注规范",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day03-语料清洗与标注规范"
-        },
-        {
-          "text": "Agent架构师 Day04 NLP基础任务拆解方法",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day04-NLP基础任务拆解方法"
-        },
-        {
-          "text": "Agent架构师 Day05 自然语言与语料",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day05-自然语言与语料"
-        },
-        {
-          "text": "Agent架构师 Day06 语料与nlp",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day06-语料与nlp"
-        },
-        {
-          "text": "Agent架构师 Day07 nlp与语料",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day07-nlp与语料"
-        },
-        {
-          "text": "Agent架构师 Day08 语义向量构建与检索",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day08-语义向量构建与检索"
-        },
-        {
-          "text": "Agent架构师 Day09 向量表示与相似度建模",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day09-向量表示与相似度建模"
-        },
-        {
-          "text": "Agent架构师 Day10 Embedding方案选型要点",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day10-Embedding方案选型要点"
-        },
-        {
-          "text": "Agent架构师 Day11 语义表示质量评估方法",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day11-语义表示质量评估方法"
-        },
-        {
-          "text": "Agent架构师 Day12 向量与embedding",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day12-向量与embedding"
-        },
-        {
-          "text": "Agent架构师 Day13 模型训练流程与评估闭环",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day13-模型训练流程与评估闭环"
-        },
-        {
-          "text": "Agent架构师 Day14 损失函数与优化策略实践",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day14-损失函数与优化策略实践"
-        },
-        {
-          "text": "Agent架构师 Day15 训练稳定性与指标校准",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day15-训练稳定性与指标校准"
-        },
-        {
-          "text": "Agent架构师 Day16 模型评估体系设计",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day16-模型评估体系设计"
-        },
-        {
-          "text": "Agent架构师 Day17 训练与f1",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day17-训练与f1"
-        },
-        {
-          "text": "Agent架构师 Day18 训练与f12",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day18-训练与f12"
-        },
-        {
-          "text": "Agent架构师 Day19 训练与优化器",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day19-训练与优化器"
-        },
-        {
-          "text": "Agent架构师 Day20 训练与f13",
-          "link": "/agent-architect-insight/2026-06/Agent架构师-Day20-训练与f13"
+          "text": "NLP 03 训练优化与评估闭环",
+          "link": "/agent-architect-insight/2026-06/NLP-03-训练优化与评估闭环"
         }
       ]
     }
