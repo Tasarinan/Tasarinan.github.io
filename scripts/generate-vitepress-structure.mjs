@@ -142,7 +142,7 @@ function buildHomePosts(sidebar) {
 
   posts.sort((a, b) => {
     if (a.month !== b.month) return b.month.localeCompare(a.month, 'zh-Hans-CN')
-    if (a.order !== b.order) return a.order - b.order
+    if (a.order !== b.order) return b.order - a.order
     return a.relPath.localeCompare(b.relPath, 'zh-Hans-CN')
   })
 
@@ -150,118 +150,86 @@ function buildHomePosts(sidebar) {
 }
 
 function writeHomeIndex(posts) {
-  const grouped = new Map()
-  for (const post of posts) {
-    if (!grouped.has(post.month)) grouped.set(post.month, [])
-    grouped.get(post.month).push(post)
-  }
-
-  const monthSections = [...grouped.entries()]
-    .map(([month, monthPosts]) => {
-      const list = monthPosts
-        .map((post) => `      <li><span>${month}</span><a href="${post.link}">${post.title}</a></li>`)
-        .join('\n')
-
+  const postItems = posts
+    .map((post) => {
       return [
-        '  <section>',
-        `    <h2>${month}</h2>`,
-        '    <ul>',
-        list,
-        '    </ul>',
-        '  </section>',
+        '    <li>',
+        `      <a class="post-title" href="${post.link}">${post.title}</a>`,
+        `      <div class="post-meta">${post.month.replace('-', '/')}</div>`,
+        '    </li>',
       ].join('\n')
     })
-    .join('\n\n')
+    .join('\n')
 
   const content = [
     '---',
-    'title: Tasarinan',
+    'title: 博客',
     'layout: doc',
     '---',
     '',
     '<div class="blog-index">',
-    '  <header class="blog-header">',
-    '    <h1>Tasarinan</h1>',
-    '    <p>一个技术写作索引，自动从文档目录生成。</p>',
-    '  </header>',
-    '',
-    monthSections,
+    '  <h1>博客</h1>',
+    '  <ul class="post-list">',
+    postItems,
+    '  </ul>',
     '</div>',
     '',
     '<style>',
     '.blog-index {',
     '  max-width: 760px;',
-    '  margin: 24px auto 48px;',
-    '  padding: 0 12px;',
+    '  margin: 12px auto 44px;',
+    '  padding: 0 8px;',
     '  color: #111;',
     '}',
     '',
-    '.blog-header {',
-    '  border-bottom: 1px solid #ddd;',
-    '  margin-bottom: 24px;',
-    '  padding-bottom: 12px;',
-    '}',
-    '',
-    '.blog-header h1 {',
+    '.blog-index h1 {',
     '  margin: 0;',
-    '  font-size: 2rem;',
+    '  font-size: 1.8rem;',
     '  font-weight: 700;',
-    '  letter-spacing: 0.5px;',
+    '  line-height: 1.2;',
+    '  padding-bottom: 8px;',
+    '  border-bottom: 1px solid #ddd;',
     '}',
     '',
-    '.blog-header p {',
-    '  margin: 8px 0 0;',
-    '  color: #444;',
-    '  font-size: 0.98rem;',
-    '}',
-    '',
-    '.blog-index h2 {',
-    '  margin: 20px 0 10px;',
-    '  font-size: 1.15rem;',
-    '  font-weight: 600;',
-    '  color: #222;',
-    '}',
-    '',
-    '.blog-index ul {',
+    '.post-list {',
     '  list-style: none;',
-    '  margin: 0;',
+    '  margin: 10px 0 0;',
     '  padding: 0;',
     '}',
     '',
-    '.blog-index li {',
-    '  display: grid;',
-    '  grid-template-columns: 90px 1fr;',
-    '  gap: 10px;',
-    '  padding: 6px 0;',
-    '  border-top: 1px dotted #ddd;',
+    '.post-list li {',
+    '  padding: 10px 0;',
+    '  border-bottom: 1px dotted #ddd;',
     '}',
     '',
-    '.blog-index li:first-child {',
-    '  border-top: 0;',
-    '}',
-    '',
-    '.blog-index span {',
-    '  color: #666;',
-    '  font-size: 0.9rem;',
-    '}',
-    '',
-    '.blog-index a {',
+    '.post-title {',
+    '  display: inline-block;',
     '  color: #222;',
     '  text-decoration: none;',
+    '  font-size: 1rem;',
+    '  line-height: 1.38;',
     '}',
     '',
-    '.blog-index a:hover {',
+    '.post-title:hover {',
     '  text-decoration: underline;',
+    '}',
+    '',
+    '.post-meta {',
+    '  margin-top: 2px;',
+    '  color: #666;',
+    '  font-size: 0.84rem;',
+    '  letter-spacing: 0.1px;',
     '}',
     '',
     '@media (max-width: 640px) {',
     '  .blog-index {',
-    '    margin-top: 12px;',
+    '    margin-top: 8px;',
     '  }',
-    '',
-    '  .blog-index li {',
-    '    grid-template-columns: 1fr;',
-    '    gap: 2px;',
+    '  .post-list li {',
+    '    padding: 9px 0;',
+    '  }',
+    '  .blog-index h1 {',
+    '    font-size: 1.65rem;',
     '  }',
     '}',
     '</style>',
