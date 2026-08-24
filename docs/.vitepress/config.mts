@@ -7,6 +7,11 @@ export default defineConfig({
   description: 'Clean docs powered by VitePress',
   lastUpdated: true,
   ignoreDeadLinks: true,
+  markdown: {
+    config(md) {
+      md.set({ html: false })
+    },
+  },
   themeConfig: {
     nav,
     sidebar,
