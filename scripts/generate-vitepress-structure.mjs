@@ -6,6 +6,8 @@ const docsDir = path.join(rootDir, 'docs')
 const generatedDir = path.join(docsDir, '.vitepress', 'generated')
 const outputFile = path.join(generatedDir, 'navigation.mjs')
 const homeIndexFile = path.join(docsDir, 'index.md')
+const HOME_POST_LIST_START = '<!-- HOME_POST_LIST_START -->'
+const HOME_POST_LIST_END = '<!-- HOME_POST_LIST_END -->'
 
 const IGNORE_NAMES = new Set(['.vitepress', 'index.md', 'assets'])
 
@@ -65,6 +67,10 @@ function orderFromBase(base) {
   const m = base.match(/(?:^|[-_])(\d{1,3})(?:[-_]|$)/)
   if (m) return Number.parseInt(m[1], 10)
   return Number.POSITIVE_INFINITY
+}
+
+function escapeRegExp(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
 function buildStructure() {
@@ -161,6 +167,22 @@ function writeHomeIndex(posts) {
     })
     .join('\n')
 
+  const postListBlock = [HOME_POST_LIST_START, postItems, HOME_POST_LIST_END].join('\n')
+
+  if (fs.existsSync(homeIndexFile)) {
+    const existing = fs.readFileSync(homeIndexFile, 'utf8')
+    const replacePattern = new RegExp(
+      `${escapeRegExp(HOME_POST_LIST_START)}[\\s\\S]*?${escapeRegExp(HOME_POST_LIST_END)}`,
+      'm'
+    )
+
+    if (replacePattern.test(existing)) {
+      const updated = existing.replace(replacePattern, postListBlock)
+      fs.writeFileSync(homeIndexFile, updated, 'utf8')
+      return
+    }
+  }
+
   const content = [
     '---',
     'title: 博客',
@@ -170,7 +192,9 @@ function writeHomeIndex(posts) {
     '<div class="blog-index">',
     '  <h1>博客</h1>',
     '  <ul class="post-list">',
+    `  ${HOME_POST_LIST_START}`,
     postItems,
+    `  ${HOME_POST_LIST_END}`,
     '  </ul>',
     '</div>',
     '',

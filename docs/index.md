@@ -6,6 +6,7 @@ layout: doc
 <div class="blog-index">
   <h1>博客</h1>
   <ul class="post-list">
+  <!-- HOME_POST_LIST_START -->
     <li>
       <a class="post-title" href="/agent-architect-insight/2026-08/Agent-04-记忆评测与安全护栏">Agent 04 记忆评测与安全护栏</a>
       <div class="post-meta">2026/08</div>
@@ -62,6 +63,7 @@ layout: doc
       <a class="post-title" href="/agent-architect-insight/2026-06/NLP-01-语料基础与预处理体系">NLP 01 语料基础与预处理体系</a>
       <div class="post-meta">2026/06</div>
     </li>
+<!-- HOME_POST_LIST_END -->
   </ul>
 </div>
 
