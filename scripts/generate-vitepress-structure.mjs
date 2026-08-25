@@ -73,6 +73,156 @@ function escapeRegExp(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
+function topicDisplayName(topic) {
+  const normalized = topic.replace(/[-_]/g, ' ').replace(/\s+/g, ' ').trim()
+  if (!/[a-zA-Z]/.test(normalized)) return normalized
+  return normalized
+    .split(' ')
+    .map((word) => {
+      if (!word) return word
+      return word[0].toUpperCase() + word.slice(1)
+    })
+    .join(' ')
+}
+
+function renderTopicIndex(topic, sections) {
+  const topicName = topicDisplayName(topic)
+  const totalPosts = sections.reduce((sum, section) => sum + (section.items?.length || 0), 0)
+
+  const monthBlocks = sections
+    .map((section) => {
+      const items = (section.items || [])
+        .map((item) => `        <li><a href="${item.link}">${item.text}</a></li>`)
+        .join('\n')
+
+      return [
+        '      <section class="topic-month">',
+        `        <h2>${section.text} <span>${section.items?.length || 0} 篇</span></h2>`,
+        '        <ul>',
+        items,
+        '        </ul>',
+        '      </section>',
+      ].join('\n')
+    })
+    .join('\n')
+
+  return [
+    '---',
+    `title: ${topicName}`,
+    'layout: doc',
+    '---',
+    '',
+    '<div class="topic-index">',
+    '  <header class="topic-header">',
+    `    <h1>${topicName}</h1>`,
+    '    <p>自动聚合该主题下所有文章，按月份倒序展示。</p>',
+    `    <div class="topic-meta">${sections.length} 个月份 · ${totalPosts} 篇文章</div>`,
+    '  </header>',
+    '',
+    '  <div class="topic-months">',
+    monthBlocks,
+    '  </div>',
+    '</div>',
+    '',
+    '<style>',
+    '.topic-index {',
+    '  --ink: #11223a;',
+    '  --muted: #4b637f;',
+    '  --line: #d8e4f3;',
+    '  --card: #ffffff;',
+    '  max-width: 920px;',
+    '  margin: 10px auto 44px;',
+    '  color: var(--ink);',
+    '}',
+    '',
+    '.topic-header {',
+    '  padding: 24px;',
+    '  border-radius: 18px;',
+    '  background: linear-gradient(130deg, #f5fbff 0%, #edf5ff 100%);',
+    '  border: 1px solid var(--line);',
+    '}',
+    '',
+    '.topic-header h1 {',
+    '  margin: 0;',
+    '  font-size: clamp(1.75rem, 2.8vw, 2.3rem);',
+    '}',
+    '',
+    '.topic-header p {',
+    '  margin: 10px 0 8px;',
+    '  color: var(--muted);',
+    '}',
+    '',
+    '.topic-meta {',
+    '  font-size: 0.92rem;',
+    '  color: #2c4f75;',
+    '  font-weight: 600;',
+    '}',
+    '',
+    '.topic-months {',
+    '  margin-top: 18px;',
+    '  display: grid;',
+    '  gap: 14px;',
+    '}',
+    '',
+    '.topic-month {',
+    '  border: 1px solid var(--line);',
+    '  border-radius: 14px;',
+    '  background: var(--card);',
+    '  padding: 16px 18px;',
+    '}',
+    '',
+    '.topic-month h2 {',
+    '  margin: 0 0 10px;',
+    '  font-size: 1.12rem;',
+    '  display: flex;',
+    '  align-items: baseline;',
+    '  gap: 8px;',
+    '}',
+    '',
+    '.topic-month h2 span {',
+    '  color: var(--muted);',
+    '  font-size: 0.85rem;',
+    '  font-weight: 500;',
+    '}',
+    '',
+    '.topic-month ul {',
+    '  margin: 0;',
+    '  padding-left: 18px;',
+    '}',
+    '',
+    '.topic-month li + li {',
+    '  margin-top: 8px;',
+    '}',
+    '',
+    '.topic-month a {',
+    '  color: #194674;',
+    '  text-decoration: none;',
+    '}',
+    '',
+    '.topic-month a:hover {',
+    '  text-decoration: underline;',
+    '}',
+    '',
+    '@media (max-width: 640px) {',
+    '  .topic-header {',
+    '    padding: 18px;',
+    '  }',
+    '  .topic-month {',
+    '    padding: 14px;',
+    '  }',
+    '}',
+    '</style>',
+    '',
+  ].join('\n')
+}
+
+function writeTopicIndex(topic, sections) {
+  const topicDir = path.join(docsDir, topic)
+  const topicIndexFile = path.join(topicDir, 'index.md')
+  const content = renderTopicIndex(topic, sections)
+  fs.writeFileSync(topicIndexFile, content, 'utf8')
+}
+
 function buildStructure() {
   const topicDirs = listDirs(docsDir)
     .filter((name) => !IGNORE_NAMES.has(name))
@@ -113,13 +263,20 @@ function buildStructure() {
     }
 
     if (firstLink) {
+      const topicIndexLink = `/${topic}/`
       nav.push({
         text: topic,
-        link: firstLink,
+        link: topicIndexLink,
+      })
+
+      topicSidebarItems.unshift({
+        text: '主题总览',
+        link: topicIndexLink,
       })
     }
 
     sidebar[`/${topic}/`] = topicSidebarItems
+    writeTopicIndex(topic, topicSidebarItems.slice(1))
   }
 
   return { nav, sidebar }

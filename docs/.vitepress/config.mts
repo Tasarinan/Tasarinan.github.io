@@ -15,6 +15,10 @@ export default defineConfig({
   themeConfig: {
     nav,
     sidebar,
+    outline: {
+      level: [2, 3],
+      label: '目录',
+    },
     search: {
       provider: 'local',
     },

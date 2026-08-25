@@ -4,12 +4,16 @@
 export const nav = [
   {
     "text": "agent-architect-insight",
-    "link": "/agent-architect-insight/2026-08/Agent-01-任务规划与执行框架"
+    "link": "/agent-architect-insight/"
   }
 ]
 
 export const sidebar = {
   "/agent-architect-insight/": [
+    {
+      "text": "主题总览",
+      "link": "/agent-architect-insight/"
+    },
     {
       "text": "2026-08",
       "collapsed": false,
