@@ -9,7 +9,7 @@ export default defineConfig({
   ignoreDeadLinks: true,
   markdown: {
     config(md) {
-      md.set({ html: false })
+      md.set({ html: true })
     },
   },
   themeConfig: {

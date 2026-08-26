@@ -6,8 +6,7 @@ const docsDir = path.join(rootDir, 'docs')
 const generatedDir = path.join(docsDir, '.vitepress', 'generated')
 const outputFile = path.join(generatedDir, 'navigation.mjs')
 const homeIndexFile = path.join(docsDir, 'index.md')
-const HOME_POST_LIST_START = '<!-- HOME_POST_LIST_START -->'
-const HOME_POST_LIST_END = '<!-- HOME_POST_LIST_END -->'
+const sitemapFile = path.join(docsDir, 'sitemap.md')
 
 const IGNORE_NAMES = new Set(['.vitepress', 'index.md', 'assets'])
 
@@ -24,8 +23,7 @@ function stripMd(fileName) {
 }
 
 function titleFromName(name) {
-  const base = stripMd(name)
-  return base.replace(/[-_]/g, ' ').trim()
+  return stripMd(name).replace(/[-_]/g, ' ').trim()
 }
 
 function displayTitleFromBase(baseName) {
@@ -57,20 +55,10 @@ function listMarkdownFiles(absDir) {
     .sort((a, b) => a.localeCompare(b, 'zh-Hans-CN'))
 }
 
-function monthFromRelPath(relPath) {
-  const parts = toPosixPath(relPath).split('/')
-  if (parts.length >= 2 && isMonthDir(parts[1])) return parts[1]
-  return ''
-}
-
 function orderFromBase(base) {
   const m = base.match(/(?:^|[-_])(\d{1,3})(?:[-_]|$)/)
   if (m) return Number.parseInt(m[1], 10)
   return Number.POSITIVE_INFINITY
-}
-
-function escapeRegExp(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
 function topicDisplayName(topic) {
@@ -78,10 +66,7 @@ function topicDisplayName(topic) {
   if (!/[a-zA-Z]/.test(normalized)) return normalized
   return normalized
     .split(' ')
-    .map((word) => {
-      if (!word) return word
-      return word[0].toUpperCase() + word.slice(1)
-    })
+    .map((word) => (word ? word[0].toUpperCase() + word.slice(1) : word))
     .join(' ')
 }
 
@@ -219,8 +204,7 @@ function renderTopicIndex(topic, sections) {
 function writeTopicIndex(topic, sections) {
   const topicDir = path.join(docsDir, topic)
   const topicIndexFile = path.join(topicDir, 'index.md')
-  const content = renderTopicIndex(topic, sections)
-  fs.writeFileSync(topicIndexFile, content, 'utf8')
+  fs.writeFileSync(topicIndexFile, renderTopicIndex(topic, sections), 'utf8')
 }
 
 function buildStructure() {
@@ -238,7 +222,7 @@ function buildStructure() {
       .sort((a, b) => b.localeCompare(a, 'zh-Hans-CN'))
 
     const topicSidebarItems = []
-    let firstLink = ''
+    let hasPosts = false
 
     for (const month of monthDirs) {
       const monthAbs = path.join(topicAbs, month)
@@ -251,8 +235,8 @@ function buildStructure() {
         }
       })
 
-      if (!firstLink && items.length > 0) {
-        firstLink = items[0].link
+      if (items.length > 0) {
+        hasPosts = true
       }
 
       topicSidebarItems.push({
@@ -262,38 +246,31 @@ function buildStructure() {
       })
     }
 
-    if (firstLink) {
+    if (hasPosts) {
       const topicIndexLink = `/${topic}/`
-      nav.push({
-        text: topic,
-        link: topicIndexLink,
-      })
-
-      topicSidebarItems.unshift({
-        text: '主题总览',
-        link: topicIndexLink,
-      })
+      nav.push({ text: topic, link: topicIndexLink })
+      topicSidebarItems.unshift({ text: '主题总览', link: topicIndexLink })
+      writeTopicIndex(topic, topicSidebarItems.slice(1))
     }
 
     sidebar[`/${topic}/`] = topicSidebarItems
-    writeTopicIndex(topic, topicSidebarItems.slice(1))
   }
+
+  nav.push({ text: '站点地图', link: '/sitemap' })
 
   return { nav, sidebar }
 }
 
 function buildHomePosts(sidebar) {
-  const topicKeys = Object.keys(sidebar)
   const posts = []
 
-  for (const key of topicKeys) {
+  for (const key of Object.keys(sidebar)) {
     const sections = sidebar[key] || []
     for (const section of sections) {
-      const month = section.text
       for (const item of section.items || []) {
         const base = stripMd(path.basename(item.link))
         posts.push({
-          month,
+          month: section.text,
           title: displayTitleFromBase(base),
           link: item.link,
           order: orderFromBase(base),
@@ -312,33 +289,63 @@ function buildHomePosts(sidebar) {
   return posts
 }
 
-function writeHomeIndex(posts) {
+function buildTopicCards(sidebar) {
+  const cards = []
+
+  for (const key of Object.keys(sidebar)) {
+    const topic = key.replace(/^\//, '').replace(/\/$/, '')
+    const topicName = topicDisplayName(topic)
+    const sections = (sidebar[key] || []).filter((section) => Array.isArray(section.items))
+    const allItems = sections.flatMap((section) => section.items || [])
+
+    cards.push({
+      topic,
+      topicName,
+      monthCount: sections.length,
+      postCount: allItems.length,
+      latestPosts: allItems.slice(0, 3),
+      topicLink: `/${topic}/`,
+    })
+  }
+
+  return cards
+}
+
+function writeHomeIndex(posts, sidebar) {
+  const cards = buildTopicCards(sidebar)
+  const monthOptions = Array.from(new Set(posts.map((post) => post.month)))
+
   const postItems = posts
     .map((post) => {
       return [
-        '    <li>',
-        `      <a class="post-title" href="${post.link}">${post.title}</a>`,
-        `      <div class="post-meta">${post.month.replace('-', '/')}</div>`,
-        '    </li>',
+        `      <li class="post-item" data-title="${post.title.toLowerCase()}" data-month="${post.month}">`,
+        '        <div class="post-line">',
+        `          <a class="post-title" href="${post.link}">${post.title}</a>`,
+        `          <span class="post-meta">${post.month.replace('-', '/')}</span>`,
+        '        </div>',
+        '      </li>',
       ].join('\n')
     })
     .join('\n')
 
-  const postListBlock = [HOME_POST_LIST_START, postItems, HOME_POST_LIST_END].join('\n')
+  const cardItems = cards
+    .map((card) => {
+      const latest = card.latestPosts
+        .map((item) => `<li><a href="${item.link}">${item.text}</a></li>`)
+        .join('')
 
-  if (fs.existsSync(homeIndexFile)) {
-    const existing = fs.readFileSync(homeIndexFile, 'utf8')
-    const replacePattern = new RegExp(
-      `${escapeRegExp(HOME_POST_LIST_START)}[\\s\\S]*?${escapeRegExp(HOME_POST_LIST_END)}`,
-      'm'
-    )
-
-    if (replacePattern.test(existing)) {
-      const updated = existing.replace(replacePattern, postListBlock)
-      fs.writeFileSync(homeIndexFile, updated, 'utf8')
-      return
-    }
-  }
+      return [
+        '      <article class="topic-card">',
+        '        <div class="topic-card-head">',
+        `          <h3><a href="${card.topicLink}">${card.topicName}</a></h3>`,
+        `          <span>${card.postCount} 篇</span>`,
+        '        </div>',
+        `        <div class="topic-card-meta">${card.monthCount} 个月份</div>`,
+        `        <ul class="topic-card-list">${latest}</ul>`,
+        '      </article>',
+      ].join('\n')
+    })
+    .join('\n')
 
   const content = [
     '---',
@@ -347,29 +354,289 @@ function writeHomeIndex(posts) {
     '---',
     '',
     '<div class="blog-index">',
-    '  <h1>博客</h1>',
-    '  <ul class="post-list">',
-    `  ${HOME_POST_LIST_START}`,
+    '  <section class="hero">',
+    '    <p class="hero-kicker">Tasarinan.github.io</p>',
+    '    <h1>Agent Architect Insight</h1>',
+    '    <p class="hero-subtitle">围绕 LLM 与 Agent 工程实践，持续沉淀可复用的方法、指标与设计决策。</p>',
+    '    <div class="hero-tags">',
+    '      <span>Architecture</span>',
+    '      <span>RAG</span>',
+    '      <span>Prompting</span>',
+    '      <span>Safety</span>',
+    '      <span>Evaluation</span>',
+    '    </div>',
+    '  </section>',
+    '',
+    '  <section class="topics-panel">',
+    '    <div class="panel-head">',
+    '      <h2>主题导航</h2>',
+    '      <a href="/sitemap">查看全站地图</a>',
+    '    </div>',
+    '    <div class="topic-grid">',
+    cardItems,
+    '    </div>',
+    '  </section>',
+    '',
+    '  <section class="post-section">',
+    '    <div class="post-section-head">',
+    '      <h2>最新文章</h2>',
+    '      <p>按发布时间倒序自动更新</p>',
+    '    </div>',
+    '    <div class="post-filter">',
+    '      <input id="post-search-input" type="search" placeholder="输入关键词筛选文章，如 RAG / 记忆 / Prompt" />',
+    '      <select id="post-month-select" aria-label="按月份筛选">',
+    '        <option value="">全部月份</option>',
+    ...monthOptions.map((month) => `        <option value="${month}">${month.replace('-', '/')}</option>`),
+    '      </select>',
+    '      <button id="post-filter-reset" type="button">清空筛选</button>',
+    '      <span id="post-search-count"></span>',
+    '    </div>',
+    '    <ul class="post-list" id="post-list">',
     postItems,
-    `  ${HOME_POST_LIST_END}`,
-    '  </ul>',
+    '    </ul>',
+    '  </section>',
     '</div>',
     '',
     '<style>',
     '.blog-index {',
-    '  max-width: 760px;',
-    '  margin: 12px auto 44px;',
-    '  padding: 0 8px;',
-    '  color: #111;',
+    '  --ink: #14253a;',
+    '  --muted: #48627f;',
+    '  --line: #d4e1ed;',
+    '  --brand-soft: #e5f0fb;',
+    '  max-width: 980px;',
+    '  margin: 8px auto 44px;',
+    '  color: var(--ink);',
+    '  font-family: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;',
     '}',
     '',
-    '.blog-index h1 {',
+    '.hero {',
+    '  position: relative;',
+    '  overflow: hidden;',
+    '  border-radius: 22px;',
+    '  padding: 34px 30px 28px;',
+    '  background: radial-gradient(circle at 0% 0%, #fdfefe 0%, #eef6ff 55%, #e4eef9 100%);',
+    '  border: 1px solid var(--line);',
+    '  box-shadow: 0 20px 36px -30px rgba(15, 43, 81, 0.35);',
+    '}',
+    '',
+    '.hero::after {',
+    '  content: "";',
+    '  position: absolute;',
+    '  right: -60px;',
+    '  top: -50px;',
+    '  width: 240px;',
+    '  height: 240px;',
+    '  border-radius: 999px;',
+    '  background: linear-gradient(130deg, rgba(130, 169, 209, 0.24), rgba(15, 76, 129, 0.08));',
+    '}',
+    '',
+    '.hero-kicker {',
     '  margin: 0;',
-    '  font-size: 1.8rem;',
+    '  font-size: 0.8rem;',
+    '  text-transform: uppercase;',
+    '  letter-spacing: 0.14em;',
+    '  color: #315579;',
     '  font-weight: 700;',
-    '  line-height: 1.2;',
-    '  padding-bottom: 8px;',
-    '  border-bottom: 1px solid #ddd;',
+    '}',
+    '',
+    '.hero h1 {',
+    '  margin: 8px 0 0;',
+    '  font-size: clamp(1.85rem, 3.8vw, 2.8rem);',
+    '  line-height: 1.08;',
+    '  letter-spacing: -0.02em;',
+    '}',
+    '',
+    '.hero-subtitle {',
+    '  max-width: 690px;',
+    '  margin: 14px 0 0;',
+    '  color: var(--muted);',
+    '  font-size: 1.03rem;',
+    '  line-height: 1.56;',
+    '}',
+    '',
+    '.hero-tags {',
+    '  position: relative;',
+    '  z-index: 1;',
+    '  display: flex;',
+    '  flex-wrap: wrap;',
+    '  gap: 8px;',
+    '  margin-top: 16px;',
+    '}',
+    '',
+    '.hero-tags span {',
+    '  display: inline-flex;',
+    '  align-items: center;',
+    '  justify-content: center;',
+    '  padding: 5px 10px;',
+    '  border-radius: 999px;',
+    '  background: var(--brand-soft);',
+    '  color: #194977;',
+    '  border: 1px solid #cce0f4;',
+    '  font-size: 0.8rem;',
+    '  font-weight: 600;',
+    '}',
+    '',
+    '.topics-panel, .post-section {',
+    '  margin-top: 16px;',
+    '  border: 1px solid var(--line);',
+    '  border-radius: 18px;',
+    '  background: #fff;',
+    '  padding: 16px;',
+    '}',
+    '',
+    '.panel-head, .post-section-head {',
+    '  display: flex;',
+    '  justify-content: space-between;',
+    '  align-items: baseline;',
+    '  gap: 10px;',
+    '  border-bottom: 1px solid #e6eef7;',
+    '  padding-bottom: 12px;',
+    '}',
+    '',
+    '.panel-head h2, .post-section-head h2 {',
+    '  margin: 0;',
+    '  font-size: 1.16rem;',
+    '}',
+    '',
+    '.panel-head a {',
+    '  color: #194674;',
+    '  font-size: 0.88rem;',
+    '  text-decoration: none;',
+    '}',
+    '',
+    '.panel-head a:hover {',
+    '  text-decoration: underline;',
+    '}',
+    '',
+    '.post-section-head p {',
+    '  margin: 0;',
+    '  color: var(--muted);',
+    '  font-size: 0.9rem;',
+    '}',
+    '',
+    '.topic-grid {',
+    '  margin-top: 12px;',
+    '  display: grid;',
+    '  gap: 10px;',
+    '  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));',
+    '}',
+    '',
+    '.topic-card {',
+    '  border: 1px solid #e6edf5;',
+    '  border-radius: 12px;',
+    '  padding: 12px;',
+    '  background: linear-gradient(130deg, #ffffff 0%, #f7fbff 100%);',
+    '}',
+    '',
+    '.topic-card-head {',
+    '  display: flex;',
+    '  justify-content: space-between;',
+    '  align-items: baseline;',
+    '  gap: 8px;',
+    '}',
+    '',
+    '.topic-card-head h3 {',
+    '  margin: 0;',
+    '  font-size: 1rem;',
+    '}',
+    '',
+    '.topic-card-head h3 a {',
+    '  color: #143a63;',
+    '  text-decoration: none;',
+    '}',
+    '',
+    '.topic-card-head h3 a:hover {',
+    '  text-decoration: underline;',
+    '}',
+    '',
+    '.topic-card-head span {',
+    '  font-size: 0.78rem;',
+    '  color: #3b5d81;',
+    '  background: #eaf2fb;',
+    '  padding: 2px 6px;',
+    '  border-radius: 999px;',
+    '}',
+    '',
+    '.topic-card-meta {',
+    '  margin-top: 6px;',
+    '  color: #56718d;',
+    '  font-size: 0.82rem;',
+    '}',
+    '',
+    '.topic-card-list {',
+    '  margin: 8px 0 0;',
+    '  padding-left: 17px;',
+    '}',
+    '',
+    '.topic-card-list li + li {',
+    '  margin-top: 5px;',
+    '}',
+    '',
+    '.topic-card-list a {',
+    '  color: #214f7a;',
+    '  text-decoration: none;',
+    '  font-size: 0.88rem;',
+    '}',
+    '',
+    '.topic-card-list a:hover {',
+    '  text-decoration: underline;',
+    '}',
+    '',
+    '.post-filter {',
+    '  margin-top: 12px;',
+    '  display: grid;',
+    '  grid-template-columns: minmax(220px, 1fr) 130px 100px auto;',
+    '  gap: 8px;',
+    '  align-items: center;',
+    '}',
+    '',
+    '.post-filter input {',
+    '  width: 100%;',
+    '  border: 1px solid #cfdceb;',
+    '  border-radius: 10px;',
+    '  padding: 9px 11px;',
+    '  font-size: 0.92rem;',
+    '  color: #17314e;',
+    '  background: #f9fcff;',
+    '}',
+    '',
+    '.post-filter input:focus {',
+    '  outline: 2px solid #c8ddf3;',
+    '  border-color: #97badf;',
+    '}',
+
+    '.post-filter select {',
+    '  border: 1px solid #cfdceb;',
+    '  border-radius: 10px;',
+    '  padding: 9px 10px;',
+    '  font-size: 0.9rem;',
+    '  color: #17314e;',
+    '  background: #f9fcff;',
+    '}',
+
+    '.post-filter select:focus {',
+    '  outline: 2px solid #c8ddf3;',
+    '  border-color: #97badf;',
+    '}',
+
+    '.post-filter button {',
+    '  border: 1px solid #b4cbe5;',
+    '  border-radius: 10px;',
+    '  padding: 8px 10px;',
+    '  background: #eef5fc;',
+    '  color: #20476e;',
+    '  font-size: 0.88rem;',
+    '  font-weight: 600;',
+    '  cursor: pointer;',
+    '}',
+
+    '.post-filter button:hover {',
+    '  background: #e0eefb;',
+    '}',
+    '',
+    '.post-filter span {',
+    '  color: #4a6684;',
+    '  font-size: 0.84rem;',
     '}',
     '',
     '.post-list {',
@@ -378,16 +645,39 @@ function writeHomeIndex(posts) {
     '  padding: 0;',
     '}',
     '',
-    '.post-list li {',
-    '  padding: 10px 0;',
-    '  border-bottom: 1px dotted #ddd;',
+    '.post-item {',
+    '  margin-top: 8px;',
+    '  border: 1px solid #e6edf5;',
+    '  border-radius: 12px;',
+    '  background: linear-gradient(130deg, #ffffff 0%, #f7fbff 100%);',
+    '  padding: 11px 12px;',
+    '  animation: fade-up 420ms ease both;',
+    '}',
+    '',
+    '.post-item:nth-child(2n) {',
+    '  animation-delay: 60ms;',
+    '}',
+    '',
+    '.post-item:nth-child(3n) {',
+    '  animation-delay: 120ms;',
+    '}',
+    '',
+    '.post-line {',
+    '  display: flex;',
+    '  align-items: baseline;',
+    '  justify-content: space-between;',
+    '  gap: 10px;',
+    '}',
+    '',
+    '.post-item.is-hidden {',
+    '  display: none;',
     '}',
     '',
     '.post-title {',
-    '  display: inline-block;',
-    '  color: #222;',
+    '  color: #143a63;',
     '  text-decoration: none;',
     '  font-size: 1rem;',
+    '  font-weight: 600;',
     '  line-height: 1.38;',
     '}',
     '',
@@ -396,24 +686,93 @@ function writeHomeIndex(posts) {
     '}',
     '',
     '.post-meta {',
-    '  margin-top: 2px;',
-    '  color: #666;',
-    '  font-size: 0.84rem;',
-    '  letter-spacing: 0.1px;',
+    '  color: #456281;',
+    '  font-size: 0.82rem;',
+    '  letter-spacing: 0.03em;',
+    '  white-space: nowrap;',
+    '}',
+    '',
+    '@keyframes fade-up {',
+    '  from {',
+    '    opacity: 0;',
+    '    transform: translateY(8px);',
+    '  }',
+    '  to {',
+    '    opacity: 1;',
+    '    transform: translateY(0);',
+    '  }',
     '}',
     '',
     '@media (max-width: 640px) {',
     '  .blog-index {',
-    '    margin-top: 8px;',
+    '    margin-top: 6px;',
     '  }',
-    '  .post-list li {',
-    '    padding: 9px 0;',
+    '  .hero {',
+    '    border-radius: 16px;',
+    '    padding: 24px 18px 20px;',
     '  }',
-    '  .blog-index h1 {',
-    '    font-size: 1.65rem;',
+    '  .hero-subtitle {',
+    '    font-size: 0.95rem;',
+    '  }',
+    '  .topics-panel, .post-section {',
+    '    border-radius: 14px;',
+    '    padding: 12px;',
+    '  }',
+    '  .panel-head, .post-section-head {',
+    '    flex-direction: column;',
+    '    align-items: flex-start;',
+    '    gap: 4px;',
+    '  }',
+    '  .post-filter {',
+    '    grid-template-columns: 1fr;',
+    '  }',
+    '  .post-line {',
+    '    flex-direction: column;',
+    '    align-items: flex-start;',
     '  }',
     '}',
     '</style>',
+    '',
+    '<script>',
+    '(() => {',
+    '  if (typeof window === "undefined" || typeof document === "undefined") return',
+    '  const input = document.getElementById("post-search-input")',
+    '  const monthSelect = document.getElementById("post-month-select")',
+    '  const resetBtn = document.getElementById("post-filter-reset")',
+    '  const count = document.getElementById("post-search-count")',
+    '  const list = document.getElementById("post-list")',
+    '  if (!input || !monthSelect || !resetBtn || !count || !list) return',
+    '',
+    '  const items = Array.from(list.querySelectorAll(".post-item"))',
+    '  const renderCount = () => {',
+    '    const visible = items.filter((item) => !item.classList.contains("is-hidden")).length',
+    '    count.textContent = `显示 ${visible} / ${items.length}`',
+    '  }',
+    '',
+    '  const runFilter = () => {',
+    '    const q = input.value.trim().toLowerCase()',
+    '    const selectedMonth = monthSelect.value',
+    '    for (const item of items) {',
+    '      const title = item.getAttribute("data-title") || ""',
+    '      const month = item.getAttribute("data-month") || ""',
+    '      const matchText = !q || title.includes(q) || month.includes(q)',
+    '      const matchMonth = !selectedMonth || month === selectedMonth',
+    '      const hit = matchText && matchMonth',
+    '      item.classList.toggle("is-hidden", !hit)',
+    '    }',
+    '    renderCount()',
+    '  }',
+    '',
+    '  input.addEventListener("input", runFilter)',
+    '  monthSelect.addEventListener("change", runFilter)',
+    '  resetBtn.addEventListener("click", () => {',
+    '    input.value = ""',
+    '    monthSelect.value = ""',
+    '    runFilter()',
+    '  })',
+    '  renderCount()',
+    '})()',
+    '</script>',
     '',
   ].join('\n')
 
@@ -438,11 +797,47 @@ function writeNavigationFile(nav, sidebar) {
   fs.writeFileSync(outputFile, content, 'utf8')
 }
 
+function writeSitemap(sidebar) {
+  const lines = [
+    '---',
+    'title: 站点地图',
+    'layout: doc',
+    '---',
+    '',
+    '# 站点地图',
+    '',
+    '自动生成的全站内容导航，按主题和月份归档。',
+    '',
+  ]
+
+  for (const key of Object.keys(sidebar)) {
+    const topic = key.replace(/^\//, '').replace(/\/$/, '')
+    const topicName = topicDisplayName(topic)
+    const sections = (sidebar[key] || []).filter((section) => Array.isArray(section.items))
+
+    lines.push(`## [${topicName}](/${topic}/)`)
+    lines.push('')
+
+    for (const section of sections) {
+      lines.push(`### ${section.text}`)
+      lines.push('')
+      for (const item of section.items || []) {
+        lines.push(`- [${item.text}](${item.link})`)
+      }
+      lines.push('')
+    }
+  }
+
+  fs.writeFileSync(sitemapFile, `${lines.join('\n')}\n`, 'utf8')
+}
+
 const { nav, sidebar } = buildStructure()
 writeNavigationFile(nav, sidebar)
 const posts = buildHomePosts(sidebar)
-writeHomeIndex(posts)
+writeHomeIndex(posts, sidebar)
+writeSitemap(sidebar)
 
 console.log(`Generated ${path.relative(rootDir, outputFile)}`)
 console.log(`Generated ${path.relative(rootDir, homeIndexFile)} (${posts.length} posts)`)
+console.log(`Generated ${path.relative(rootDir, sitemapFile)}`)
 console.log(`Topics: ${Object.keys(sidebar).length}`)

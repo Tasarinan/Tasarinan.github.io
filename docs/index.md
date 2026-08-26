@@ -17,82 +17,126 @@ layout: doc
     </div>
   </section>
 
+  <section class="topics-panel">
+    <div class="panel-head">
+      <h2>主题导航</h2>
+      <a href="/sitemap">查看全站地图</a>
+    </div>
+    <div class="topic-grid">
+      <article class="topic-card">
+        <div class="topic-card-head">
+          <h3><a href="/agent-architect-insight/">Agent Architect Insight</a></h3>
+          <span>14 篇</span>
+        </div>
+        <div class="topic-card-meta">3 个月份</div>
+        <ul class="topic-card-list"><li><a href="/agent-architect-insight/2026-08/Agent-01-任务规划与执行框架">Agent 01 任务规划与执行框架</a></li><li><a href="/agent-architect-insight/2026-08/Agent-02-协作机制与流程治理">Agent 02 协作机制与流程治理</a></li><li><a href="/agent-architect-insight/2026-08/Agent-03-工具调用与路由容错">Agent 03 工具调用与路由容错</a></li></ul>
+      </article>
+    </div>
+  </section>
+
   <section class="post-section">
     <div class="post-section-head">
       <h2>最新文章</h2>
       <p>按发布时间倒序自动更新</p>
     </div>
-
-    <ul class="post-list">
-  <!-- HOME_POST_LIST_START -->
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-08/Agent-04-记忆评测与安全护栏">Agent 04 记忆评测与安全护栏</a>
-      <div class="post-meta">2026/08</div>
-    </li>
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-08/Agent-03-工具调用与路由容错">Agent 03 工具调用与路由容错</a>
-      <div class="post-meta">2026/08</div>
-    </li>
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-08/Agent-02-协作机制与流程治理">Agent 02 协作机制与流程治理</a>
-      <div class="post-meta">2026/08</div>
-    </li>
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-08/Agent-01-任务规划与执行框架">Agent 01 任务规划与执行框架</a>
-      <div class="post-meta">2026/08</div>
-    </li>
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-07/LLM-07-微调对齐与部署优化">LLM 07 微调对齐与部署优化</a>
-      <div class="post-meta">2026/07</div>
-    </li>
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-07/LLM-06-RAG检索增强全链路">LLM 06 RAG检索增强全链路</a>
-      <div class="post-meta">2026/07</div>
-    </li>
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-07/LLM-05-Prompt结构化与迭代方法">LLM 05 Prompt结构化与迭代方法</a>
-      <div class="post-meta">2026/07</div>
-    </li>
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-07/LLM-04-参数策略与推理能力进阶">LLM 04 参数策略与推理能力进阶</a>
-      <div class="post-meta">2026/07</div>
-    </li>
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-07/LLM-03-Token治理与模型分层">LLM 03 Token治理与模型分层</a>
-      <div class="post-meta">2026/07</div>
-    </li>
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-07/LLM-02-上下文稳定性与路由控制">LLM 02 上下文稳定性与路由控制</a>
-      <div class="post-meta">2026/07</div>
-    </li>
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-07/LLM-01-上下文工程与预算起步">LLM 01 上下文工程与预算起步</a>
-      <div class="post-meta">2026/07</div>
-    </li>
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-06/NLP-03-训练优化与评估闭环">NLP 03 训练优化与评估闭环</a>
-      <div class="post-meta">2026/06</div>
-    </li>
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-06/NLP-02-语义向量与Embedding工程">NLP 02 语义向量与Embedding工程</a>
-      <div class="post-meta">2026/06</div>
-    </li>
-    <li>
-      <a class="post-title" href="/agent-architect-insight/2026-06/NLP-01-语料基础与预处理体系">NLP 01 语料基础与预处理体系</a>
-      <div class="post-meta">2026/06</div>
-    </li>
-<!-- HOME_POST_LIST_END -->
+    <div class="post-filter">
+      <input id="post-search-input" type="search" placeholder="输入关键词筛选文章，如 RAG / 记忆 / Prompt" />
+      <span id="post-search-count"></span>
+    </div>
+    <ul class="post-list" id="post-list">
+      <li class="post-item" data-title="agent 04 记忆评测与安全护栏" data-month="2026-08">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-08/Agent-04-记忆评测与安全护栏">Agent 04 记忆评测与安全护栏</a>
+          <span class="post-meta">2026/08</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="agent 03 工具调用与路由容错" data-month="2026-08">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-08/Agent-03-工具调用与路由容错">Agent 03 工具调用与路由容错</a>
+          <span class="post-meta">2026/08</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="agent 02 协作机制与流程治理" data-month="2026-08">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-08/Agent-02-协作机制与流程治理">Agent 02 协作机制与流程治理</a>
+          <span class="post-meta">2026/08</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="agent 01 任务规划与执行框架" data-month="2026-08">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-08/Agent-01-任务规划与执行框架">Agent 01 任务规划与执行框架</a>
+          <span class="post-meta">2026/08</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="llm 07 微调对齐与部署优化" data-month="2026-07">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-07/LLM-07-微调对齐与部署优化">LLM 07 微调对齐与部署优化</a>
+          <span class="post-meta">2026/07</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="llm 06 rag检索增强全链路" data-month="2026-07">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-07/LLM-06-RAG检索增强全链路">LLM 06 RAG检索增强全链路</a>
+          <span class="post-meta">2026/07</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="llm 05 prompt结构化与迭代方法" data-month="2026-07">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-07/LLM-05-Prompt结构化与迭代方法">LLM 05 Prompt结构化与迭代方法</a>
+          <span class="post-meta">2026/07</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="llm 04 参数策略与推理能力进阶" data-month="2026-07">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-07/LLM-04-参数策略与推理能力进阶">LLM 04 参数策略与推理能力进阶</a>
+          <span class="post-meta">2026/07</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="llm 03 token治理与模型分层" data-month="2026-07">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-07/LLM-03-Token治理与模型分层">LLM 03 Token治理与模型分层</a>
+          <span class="post-meta">2026/07</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="llm 02 上下文稳定性与路由控制" data-month="2026-07">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-07/LLM-02-上下文稳定性与路由控制">LLM 02 上下文稳定性与路由控制</a>
+          <span class="post-meta">2026/07</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="llm 01 上下文工程与预算起步" data-month="2026-07">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-07/LLM-01-上下文工程与预算起步">LLM 01 上下文工程与预算起步</a>
+          <span class="post-meta">2026/07</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="nlp 03 训练优化与评估闭环" data-month="2026-06">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-06/NLP-03-训练优化与评估闭环">NLP 03 训练优化与评估闭环</a>
+          <span class="post-meta">2026/06</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="nlp 02 语义向量与embedding工程" data-month="2026-06">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-06/NLP-02-语义向量与Embedding工程">NLP 02 语义向量与Embedding工程</a>
+          <span class="post-meta">2026/06</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="nlp 01 语料基础与预处理体系" data-month="2026-06">
+        <div class="post-line">
+          <a class="post-title" href="/agent-architect-insight/2026-06/NLP-01-语料基础与预处理体系">NLP 01 语料基础与预处理体系</a>
+          <span class="post-meta">2026/06</span>
+        </div>
+      </li>
     </ul>
   </section>
 </div>
 
 <style>
 .blog-index {
-  --bg-soft: #f4f8fb;
   --ink: #14253a;
   --muted: #48627f;
   --line: #d4e1ed;
-  --brand: #0f4c81;
   --brand-soft: #e5f0fb;
   max-width: 980px;
   margin: 8px auto 44px;
@@ -167,7 +211,7 @@ layout: doc
   font-weight: 600;
 }
 
-.post-section {
+.topics-panel, .post-section {
   margin-top: 16px;
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -175,7 +219,7 @@ layout: doc
   padding: 16px;
 }
 
-.post-section-head {
+.panel-head, .post-section-head {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -184,9 +228,19 @@ layout: doc
   padding-bottom: 12px;
 }
 
-.post-section-head h2 {
+.panel-head h2, .post-section-head h2 {
   margin: 0;
-  font-size: 1.26rem;
+  font-size: 1.16rem;
+}
+
+.panel-head a {
+  color: #194674;
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+
+.panel-head a:hover {
+  text-decoration: underline;
 }
 
 .post-section-head p {
@@ -195,34 +249,140 @@ layout: doc
   font-size: 0.9rem;
 }
 
+.topic-grid {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.topic-card {
+  border: 1px solid #e6edf5;
+  border-radius: 12px;
+  padding: 12px;
+  background: linear-gradient(130deg, #ffffff 0%, #f7fbff 100%);
+}
+
+.topic-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.topic-card-head h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.topic-card-head h3 a {
+  color: #143a63;
+  text-decoration: none;
+}
+
+.topic-card-head h3 a:hover {
+  text-decoration: underline;
+}
+
+.topic-card-head span {
+  font-size: 0.78rem;
+  color: #3b5d81;
+  background: #eaf2fb;
+  padding: 2px 6px;
+  border-radius: 999px;
+}
+
+.topic-card-meta {
+  margin-top: 6px;
+  color: #56718d;
+  font-size: 0.82rem;
+}
+
+.topic-card-list {
+  margin: 8px 0 0;
+  padding-left: 17px;
+}
+
+.topic-card-list li + li {
+  margin-top: 5px;
+}
+
+.topic-card-list a {
+  color: #214f7a;
+  text-decoration: none;
+  font-size: 0.88rem;
+}
+
+.topic-card-list a:hover {
+  text-decoration: underline;
+}
+
+.post-filter {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.post-filter input {
+  width: 100%;
+  border: 1px solid #cfdceb;
+  border-radius: 10px;
+  padding: 9px 11px;
+  font-size: 0.92rem;
+  color: #17314e;
+  background: #f9fcff;
+}
+
+.post-filter input:focus {
+  outline: 2px solid #c8ddf3;
+  border-color: #97badf;
+}
+
+.post-filter span {
+  color: #4a6684;
+  font-size: 0.84rem;
+}
+
 .post-list {
   list-style: none;
-  margin: 0;
+  margin: 10px 0 0;
   padding: 0;
 }
 
-.post-list li {
-  margin-top: 10px;
-  padding: 12px 14px;
+.post-item {
+  margin-top: 8px;
   border: 1px solid #e6edf5;
   border-radius: 12px;
   background: linear-gradient(130deg, #ffffff 0%, #f7fbff 100%);
+  padding: 11px 12px;
   animation: fade-up 420ms ease both;
 }
 
-.post-list li:nth-child(2n) {
+.post-item:nth-child(2n) {
   animation-delay: 60ms;
 }
 
-.post-list li:nth-child(3n) {
+.post-item:nth-child(3n) {
   animation-delay: 120ms;
 }
 
+.post-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.post-item.is-hidden {
+  display: none;
+}
+
 .post-title {
-  display: inline-block;
   color: #143a63;
   text-decoration: none;
-  font-size: 1.02rem;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.38;
 }
@@ -232,10 +392,10 @@ layout: doc
 }
 
 .post-meta {
-  margin-top: 5px;
   color: #456281;
   font-size: 0.82rem;
   letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
 @keyframes fade-up {
@@ -260,18 +420,51 @@ layout: doc
   .hero-subtitle {
     font-size: 0.95rem;
   }
-  .post-section {
+  .topics-panel, .post-section {
     border-radius: 14px;
     padding: 12px;
   }
-  .post-section-head {
+  .panel-head, .post-section-head {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
   }
-  .post-list li {
-    margin-top: 8px;
-    padding: 11px 12px;
+  .post-filter {
+    grid-template-columns: 1fr;
+  }
+  .post-line {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 </style>
+
+<script>
+(() => {
+  if (typeof window === "undefined" || typeof document === "undefined") return
+  const input = document.getElementById("post-search-input")
+  const count = document.getElementById("post-search-count")
+  const list = document.getElementById("post-list")
+  if (!input || !count || !list) return
+
+  const items = Array.from(list.querySelectorAll(".post-item"))
+  const renderCount = () => {
+    const visible = items.filter((item) => !item.classList.contains("is-hidden")).length
+    count.textContent = `显示 ${visible} / ${items.length}`
+  }
+
+  const runFilter = () => {
+    const q = input.value.trim().toLowerCase()
+    for (const item of items) {
+      const title = item.getAttribute("data-title") || ""
+      const month = item.getAttribute("data-month") || ""
+      const hit = !q || title.includes(q) || month.includes(q)
+      item.classList.toggle("is-hidden", !hit)
+    }
+    renderCount()
+  }
+
+  input.addEventListener("input", runFilter)
+  renderCount()
+})()
+</script>

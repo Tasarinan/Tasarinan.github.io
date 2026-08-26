@@ -5,6 +5,10 @@ export const nav = [
   {
     "text": "agent-architect-insight",
     "link": "/agent-architect-insight/"
+  },
+  {
+    "text": "站点地图",
+    "link": "/sitemap"
   }
 ]
 
