@@ -41,6 +41,13 @@ layout: doc
     </div>
     <div class="post-filter">
       <input id="post-search-input" type="search" placeholder="输入关键词筛选文章，如 RAG / 记忆 / Prompt" />
+      <select id="post-month-select" aria-label="按月份筛选">
+        <option value="">全部月份</option>
+        <option value="2026-08">2026/08</option>
+        <option value="2026-07">2026/07</option>
+        <option value="2026-06">2026/06</option>
+      </select>
+      <button id="post-filter-reset" type="button">清空筛选</button>
       <span id="post-search-count"></span>
     </div>
     <ul class="post-list" id="post-list">
@@ -320,7 +327,7 @@ layout: doc
 .post-filter {
   margin-top: 12px;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(220px, 1fr) 130px 100px auto;
   gap: 8px;
   align-items: center;
 }
@@ -338,6 +345,31 @@ layout: doc
 .post-filter input:focus {
   outline: 2px solid #c8ddf3;
   border-color: #97badf;
+}
+.post-filter select {
+  border: 1px solid #cfdceb;
+  border-radius: 10px;
+  padding: 9px 10px;
+  font-size: 0.9rem;
+  color: #17314e;
+  background: #f9fcff;
+}
+.post-filter select:focus {
+  outline: 2px solid #c8ddf3;
+  border-color: #97badf;
+}
+.post-filter button {
+  border: 1px solid #b4cbe5;
+  border-radius: 10px;
+  padding: 8px 10px;
+  background: #eef5fc;
+  color: #20476e;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.post-filter button:hover {
+  background: #e0eefb;
 }
 
 .post-filter span {
@@ -443,9 +475,11 @@ layout: doc
 (() => {
   if (typeof window === "undefined" || typeof document === "undefined") return
   const input = document.getElementById("post-search-input")
+  const monthSelect = document.getElementById("post-month-select")
+  const resetBtn = document.getElementById("post-filter-reset")
   const count = document.getElementById("post-search-count")
   const list = document.getElementById("post-list")
-  if (!input || !count || !list) return
+  if (!input || !monthSelect || !resetBtn || !count || !list) return
 
   const items = Array.from(list.querySelectorAll(".post-item"))
   const renderCount = () => {
@@ -455,16 +489,25 @@ layout: doc
 
   const runFilter = () => {
     const q = input.value.trim().toLowerCase()
+    const selectedMonth = monthSelect.value
     for (const item of items) {
       const title = item.getAttribute("data-title") || ""
       const month = item.getAttribute("data-month") || ""
-      const hit = !q || title.includes(q) || month.includes(q)
+      const matchText = !q || title.includes(q) || month.includes(q)
+      const matchMonth = !selectedMonth || month === selectedMonth
+      const hit = matchText && matchMonth
       item.classList.toggle("is-hidden", !hit)
     }
     renderCount()
   }
 
   input.addEventListener("input", runFilter)
+  monthSelect.addEventListener("change", runFilter)
+  resetBtn.addEventListener("click", () => {
+    input.value = ""
+    monthSelect.value = ""
+    runFilter()
+  })
   renderCount()
 })()
 </script>
