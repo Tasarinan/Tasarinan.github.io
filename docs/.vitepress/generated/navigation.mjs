@@ -7,6 +7,10 @@ export const nav = [
     "link": "/agent-architect-insight/"
   },
   {
+    "text": "opeclaw-advisor",
+    "link": "/opeclaw-advisor/"
+  },
+  {
     "text": "站点地图",
     "link": "/sitemap"
   }
@@ -92,5 +96,58 @@ export const sidebar = {
         }
       ]
     }
-  ]
+  ],
+  "/opeclaw-advisor/": [
+    {
+      "text": "主题总览",
+      "link": "/opeclaw-advisor/"
+    },
+    {
+      "text": "2026-09",
+      "collapsed": false,
+      "items": [
+        {
+          "text": "OC 01 本地优先架构与角色边界",
+          "link": "/opeclaw-advisor/2026-09/OC-01-本地优先架构与角色边界"
+        },
+        {
+          "text": "OC 02 Gateway最小闭环与安装验收",
+          "link": "/opeclaw-advisor/2026-09/OC-02-Gateway最小闭环与安装验收"
+        },
+        {
+          "text": "OC 03 模型分层与请求预算",
+          "link": "/opeclaw-advisor/2026-09/OC-03-模型分层与请求预算"
+        },
+        {
+          "text": "OC 04 消息通道与配对治理",
+          "link": "/opeclaw-advisor/2026-09/OC-04-消息通道与配对治理"
+        },
+        {
+          "text": "OC 05 技能编排与投顾技能包",
+          "link": "/opeclaw-advisor/2026-09/OC-05-技能编排与投顾技能包"
+        },
+        {
+          "text": "OC 06 记忆会话与上下文装载",
+          "link": "/opeclaw-advisor/2026-09/OC-06-记忆会话与上下文装载"
+        },
+        {
+          "text": "OC 07 多Agent协作与子代理",
+          "link": "/opeclaw-advisor/2026-09/OC-07-多Agent协作与子代理"
+        },
+        {
+          "text": "OC 08 安全沙箱与暴露面控制",
+          "link": "/opeclaw-advisor/2026-09/OC-08-安全沙箱与暴露面控制"
+        },
+        {
+          "text": "OC 09 投顾工作区实践",
+          "link": "/opeclaw-advisor/2026-09/OC-09-投顾工作区实践"
+        },
+        {
+          "text": "OC 10 经验沉淀与进化机制",
+          "link": "/opeclaw-advisor/2026-09/OC-10-经验沉淀与进化机制"
+        }
+      ]
+    }
+  ],
+  "/openclaw-guide/": []
 }

@@ -6,14 +6,17 @@ layout: doc
 <div class="blog-index">
   <section class="hero">
     <p class="hero-kicker">Tasarinan.github.io</p>
-    <h1>Agent Architect Insight</h1>
-    <p class="hero-subtitle">围绕 LLM 与 Agent 工程实践，持续沉淀可复用的方法、指标与设计决策。</p>
+    <h1>工程笔记</h1>
+    <p class="hero-subtitle">围绕 LLM、Agent 与 OpenClaw 投顾实践，持续沉淀可复用的方法、指标与设计决策。</p>
     <div class="hero-tags">
       <span>Architecture</span>
       <span>RAG</span>
       <span>Prompting</span>
       <span>Safety</span>
       <span>Evaluation</span>
+      <span>OpenClaw</span>
+      <span>Skills</span>
+      <span>Memory</span>
     </div>
   </section>
 
@@ -31,6 +34,22 @@ layout: doc
         <div class="topic-card-meta">3 个月份</div>
         <ul class="topic-card-list"><li><a href="/agent-architect-insight/2026-08/Agent-01-任务规划与执行框架">Agent 01 任务规划与执行框架</a></li><li><a href="/agent-architect-insight/2026-08/Agent-02-协作机制与流程治理">Agent 02 协作机制与流程治理</a></li><li><a href="/agent-architect-insight/2026-08/Agent-03-工具调用与路由容错">Agent 03 工具调用与路由容错</a></li></ul>
       </article>
+      <article class="topic-card">
+        <div class="topic-card-head">
+          <h3><a href="/opeclaw-advisor/">Opeclaw Advisor</a></h3>
+          <span>10 篇</span>
+        </div>
+        <div class="topic-card-meta">1 个月份</div>
+        <ul class="topic-card-list"><li><a href="/opeclaw-advisor/2026-09/OC-01-本地优先架构与角色边界">OC 01 本地优先架构与角色边界</a></li><li><a href="/opeclaw-advisor/2026-09/OC-02-Gateway最小闭环与安装验收">OC 02 Gateway最小闭环与安装验收</a></li><li><a href="/opeclaw-advisor/2026-09/OC-03-模型分层与请求预算">OC 03 模型分层与请求预算</a></li></ul>
+      </article>
+      <article class="topic-card">
+        <div class="topic-card-head">
+          <h3><a href="/openclaw-guide/">Openclaw Guide</a></h3>
+          <span>0 篇</span>
+        </div>
+        <div class="topic-card-meta">0 个月份</div>
+        <ul class="topic-card-list"></ul>
+      </article>
     </div>
   </section>
 
@@ -43,6 +62,7 @@ layout: doc
       <input id="post-search-input" type="search" placeholder="输入关键词筛选文章，如 RAG / 记忆 / Prompt" />
       <select id="post-month-select" aria-label="按月份筛选">
         <option value="">全部月份</option>
+        <option value="2026-09">2026/09</option>
         <option value="2026-08">2026/08</option>
         <option value="2026-07">2026/07</option>
         <option value="2026-06">2026/06</option>
@@ -51,6 +71,66 @@ layout: doc
       <span id="post-search-count"></span>
     </div>
     <ul class="post-list" id="post-list">
+      <li class="post-item" data-title="oc 10 经验沉淀与进化机制" data-month="2026-09">
+        <div class="post-line">
+          <a class="post-title" href="/opeclaw-advisor/2026-09/OC-10-经验沉淀与进化机制">OC 10 经验沉淀与进化机制</a>
+          <span class="post-meta">2026/09</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="oc 09 投顾工作区实践" data-month="2026-09">
+        <div class="post-line">
+          <a class="post-title" href="/opeclaw-advisor/2026-09/OC-09-投顾工作区实践">OC 09 投顾工作区实践</a>
+          <span class="post-meta">2026/09</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="oc 08 安全沙箱与暴露面控制" data-month="2026-09">
+        <div class="post-line">
+          <a class="post-title" href="/opeclaw-advisor/2026-09/OC-08-安全沙箱与暴露面控制">OC 08 安全沙箱与暴露面控制</a>
+          <span class="post-meta">2026/09</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="oc 07 多agent协作与子代理" data-month="2026-09">
+        <div class="post-line">
+          <a class="post-title" href="/opeclaw-advisor/2026-09/OC-07-多Agent协作与子代理">OC 07 多Agent协作与子代理</a>
+          <span class="post-meta">2026/09</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="oc 06 记忆会话与上下文装载" data-month="2026-09">
+        <div class="post-line">
+          <a class="post-title" href="/opeclaw-advisor/2026-09/OC-06-记忆会话与上下文装载">OC 06 记忆会话与上下文装载</a>
+          <span class="post-meta">2026/09</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="oc 05 技能编排与投顾技能包" data-month="2026-09">
+        <div class="post-line">
+          <a class="post-title" href="/opeclaw-advisor/2026-09/OC-05-技能编排与投顾技能包">OC 05 技能编排与投顾技能包</a>
+          <span class="post-meta">2026/09</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="oc 04 消息通道与配对治理" data-month="2026-09">
+        <div class="post-line">
+          <a class="post-title" href="/opeclaw-advisor/2026-09/OC-04-消息通道与配对治理">OC 04 消息通道与配对治理</a>
+          <span class="post-meta">2026/09</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="oc 03 模型分层与请求预算" data-month="2026-09">
+        <div class="post-line">
+          <a class="post-title" href="/opeclaw-advisor/2026-09/OC-03-模型分层与请求预算">OC 03 模型分层与请求预算</a>
+          <span class="post-meta">2026/09</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="oc 02 gateway最小闭环与安装验收" data-month="2026-09">
+        <div class="post-line">
+          <a class="post-title" href="/opeclaw-advisor/2026-09/OC-02-Gateway最小闭环与安装验收">OC 02 Gateway最小闭环与安装验收</a>
+          <span class="post-meta">2026/09</span>
+        </div>
+      </li>
+      <li class="post-item" data-title="oc 01 本地优先架构与角色边界" data-month="2026-09">
+        <div class="post-line">
+          <a class="post-title" href="/opeclaw-advisor/2026-09/OC-01-本地优先架构与角色边界">OC 01 本地优先架构与角色边界</a>
+          <span class="post-meta">2026/09</span>
+        </div>
+      </li>
       <li class="post-item" data-title="agent 04 记忆评测与安全护栏" data-month="2026-08">
         <div class="post-line">
           <a class="post-title" href="/agent-architect-insight/2026-08/Agent-04-记忆评测与安全护栏">Agent 04 记忆评测与安全护栏</a>
