@@ -7,7 +7,7 @@ layout: doc
 
 自动生成的全站内容导航，按主题和月份归档。
 
-## [Agent Architect Insight](/agent-architect-insight/)
+## [架构笔记](/agent-architect-insight/)
 
 ### 2026-08
 
@@ -32,7 +32,7 @@ layout: doc
 - [NLP 02 语义向量与Embedding工程](/agent-architect-insight/2026-06/NLP-02-语义向量与Embedding工程)
 - [NLP 03 训练优化与评估闭环](/agent-architect-insight/2026-06/NLP-03-训练优化与评估闭环)
 
-## [Opeclaw Advisor](/opeclaw-advisor/)
+## [FDE实践](/opeclaw-advisor/)
 
 ### 2026-09
 
@@ -47,5 +47,5 @@ layout: doc
 - [OC 09 投顾工作区实践](/opeclaw-advisor/2026-09/OC-09-投顾工作区实践)
 - [OC 10 经验沉淀与进化机制](/opeclaw-advisor/2026-09/OC-10-经验沉淀与进化机制)
 
-## [Openclaw Guide](/openclaw-guide/)
+## [AI揭密](/ai-jiemi/)
 

@@ -1,0 +1,242 @@
+:root {
+  --vp-c-brand: #00a887;
+  --vp-c-brand-light: #39efcb;
+  --vp-c-brand-lighter: #94f9e5;
+  --vp-c-brand-dark: #007a62;
+  --vp-c-brand-darker: #005241;
+  --vp-c-brand-next: #0062f5;
+  animation: rainbow 120s linear infinite;
+}
+
+@keyframes rainbow {
+  0.00% {
+    --vp-c-brand: #00a887;
+    --vp-c-brand-light: #39efcb;
+    --vp-c-brand-lighter: #94f9e5;
+    --vp-c-brand-dark: #007a62;
+    --vp-c-brand-darker: #005241;
+    --vp-c-brand-next: #0062f5;
+  }
+
+  4.17% {
+    --vp-c-brand: #00a0a8;
+    --vp-c-brand-light: #39e6ef;
+    --vp-c-brand-lighter: #94f4f9;
+    --vp-c-brand-dark: #00747a;
+    --vp-c-brand-darker: #004e52;
+    --vp-c-brand-next: #0025f5;
+  }
+
+  8.33% {
+    --vp-c-brand: #0076a8;
+    --vp-c-brand-light: #39b8ef;
+    --vp-c-brand-lighter: #94dbf9;
+    --vp-c-brand-dark: #00567a;
+    --vp-c-brand-darker: #003952;
+    --vp-c-brand-next: #1800f5;
+  }
+
+  12.50% {
+    --vp-c-brand: #004ca8;
+    --vp-c-brand-light: #398bef;
+    --vp-c-brand-lighter: #94c2f9;
+    --vp-c-brand-dark: #00377a;
+    --vp-c-brand-darker: #002552;
+    --vp-c-brand-next: #5600f5;
+  }
+
+  16.67% {
+    --vp-c-brand: #0022a8;
+    --vp-c-brand-light: #395def;
+    --vp-c-brand-lighter: #94a9f9;
+    --vp-c-brand-dark: #00187a;
+    --vp-c-brand-darker: #001052;
+    --vp-c-brand-next: #9300f5;
+  }
+
+  20.83% {
+    --vp-c-brand: #0800a8;
+    --vp-c-brand-light: #4239ef;
+    --vp-c-brand-lighter: #9994f9;
+    --vp-c-brand-dark: #06007a;
+    --vp-c-brand-darker: #040052;
+    --vp-c-brand-next: #d000f5;
+  }
+
+  25.00% {
+    --vp-c-brand: #3200a8;
+    --vp-c-brand-light: #6f39ef;
+    --vp-c-brand-lighter: #b394f9;
+    --vp-c-brand-dark: #25007a;
+    --vp-c-brand-darker: #180052;
+    --vp-c-brand-next: #f500dc;
+  }
+
+  29.17% {
+    --vp-c-brand: #5d00a8;
+    --vp-c-brand-light: #9d39ef;
+    --vp-c-brand-lighter: #cc94f9;
+    --vp-c-brand-dark: #43007a;
+    --vp-c-brand-darker: #2d0052;
+    --vp-c-brand-next: #f5009f;
+  }
+
+  33.33% {
+    --vp-c-brand: #8700a8;
+    --vp-c-brand-light: #cb39ef;
+    --vp-c-brand-lighter: #e594f9;
+    --vp-c-brand-dark: #62007a;
+    --vp-c-brand-darker: #410052;
+    --vp-c-brand-next: #f50062;
+  }
+
+  37.50% {
+    --vp-c-brand: #a800a0;
+    --vp-c-brand-light: #ef39e6;
+    --vp-c-brand-lighter: #f994f4;
+    --vp-c-brand-dark: #7a0074;
+    --vp-c-brand-darker: #52004e;
+    --vp-c-brand-next: #f50025;
+  }
+
+  41.67% {
+    --vp-c-brand: #a80076;
+    --vp-c-brand-light: #ef39b8;
+    --vp-c-brand-lighter: #f994db;
+    --vp-c-brand-dark: #7a0056;
+    --vp-c-brand-darker: #520039;
+    --vp-c-brand-next: #f51800;
+  }
+
+  45.83% {
+    --vp-c-brand: #a8004c;
+    --vp-c-brand-light: #ef398b;
+    --vp-c-brand-lighter: #f994c2;
+    --vp-c-brand-dark: #7a0037;
+    --vp-c-brand-darker: #520025;
+    --vp-c-brand-next: #f55600;
+  }
+
+  50.00% {
+    --vp-c-brand: #a80022;
+    --vp-c-brand-light: #ef395d;
+    --vp-c-brand-lighter: #f994a9;
+    --vp-c-brand-dark: #7a0018;
+    --vp-c-brand-darker: #520010;
+    --vp-c-brand-next: #f59300;
+  }
+
+  54.17% {
+    --vp-c-brand: #a80800;
+    --vp-c-brand-light: #ef4239;
+    --vp-c-brand-lighter: #f99994;
+    --vp-c-brand-dark: #7a0600;
+    --vp-c-brand-darker: #520400;
+    --vp-c-brand-next: #f5d000;
+  }
+
+  58.33% {
+    --vp-c-brand: #a83200;
+    --vp-c-brand-light: #ef6f39;
+    --vp-c-brand-lighter: #f9b394;
+    --vp-c-brand-dark: #7a2500;
+    --vp-c-brand-darker: #521800;
+    --vp-c-brand-next: #dcf500;
+  }
+
+  62.50% {
+    --vp-c-brand: #a85d00;
+    --vp-c-brand-light: #ef9d39;
+    --vp-c-brand-lighter: #f9cc94;
+    --vp-c-brand-dark: #7a4300;
+    --vp-c-brand-darker: #522d00;
+    --vp-c-brand-next: #9ff500;
+  }
+
+  66.67% {
+    --vp-c-brand: #a88700;
+    --vp-c-brand-light: #efcb39;
+    --vp-c-brand-lighter: #f9e594;
+    --vp-c-brand-dark: #7a6200;
+    --vp-c-brand-darker: #524100;
+    --vp-c-brand-next: #62f500;
+  }
+
+  70.83% {
+    --vp-c-brand: #a0a800;
+    --vp-c-brand-light: #e6ef39;
+    --vp-c-brand-lighter: #f4f994;
+    --vp-c-brand-dark: #747a00;
+    --vp-c-brand-darker: #4e5200;
+    --vp-c-brand-next: #25f500;
+  }
+
+  75.00% {
+    --vp-c-brand: #76a800;
+    --vp-c-brand-light: #b8ef39;
+    --vp-c-brand-lighter: #dbf994;
+    --vp-c-brand-dark: #567a00;
+    --vp-c-brand-darker: #395200;
+    --vp-c-brand-next: #00f518;
+  }
+
+  79.17% {
+    --vp-c-brand: #4ca800;
+    --vp-c-brand-light: #8bef39;
+    --vp-c-brand-lighter: #c2f994;
+    --vp-c-brand-dark: #377a00;
+    --vp-c-brand-darker: #255200;
+    --vp-c-brand-next: #00f556;
+  }
+
+  83.33% {
+    --vp-c-brand: #22a800;
+    --vp-c-brand-light: #5def39;
+    --vp-c-brand-lighter: #a9f994;
+    --vp-c-brand-dark: #187a00;
+    --vp-c-brand-darker: #105200;
+    --vp-c-brand-next: #00f593;
+  }
+
+  87.50% {
+    --vp-c-brand: #00a808;
+    --vp-c-brand-light: #39ef42;
+    --vp-c-brand-lighter: #94f999;
+    --vp-c-brand-dark: #007a06;
+    --vp-c-brand-darker: #005204;
+    --vp-c-brand-next: #00f5d0;
+  }
+
+  91.67% {
+    --vp-c-brand: #00a832;
+    --vp-c-brand-light: #39ef6f;
+    --vp-c-brand-lighter: #94f9b3;
+    --vp-c-brand-dark: #007a25;
+    --vp-c-brand-darker: #005218;
+    --vp-c-brand-next: #00dcf5;
+  }
+
+  95.83% {
+    --vp-c-brand: #00a85d;
+    --vp-c-brand-light: #39ef9d;
+    --vp-c-brand-lighter: #94f9cc;
+    --vp-c-brand-dark: #007a43;
+    --vp-c-brand-darker: #00522d;
+    --vp-c-brand-next: #009ff5;
+  }
+
+  100.00% {
+    --vp-c-brand: #00a887;
+    --vp-c-brand-light: #39efcb;
+    --vp-c-brand-lighter: #94f9e5;
+    --vp-c-brand-dark: #007a62;
+    --vp-c-brand-darker: #005241;
+    --vp-c-brand-next: #0062f5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    animation: none !important;
+  }
+}

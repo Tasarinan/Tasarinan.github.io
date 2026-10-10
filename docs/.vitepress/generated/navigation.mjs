@@ -3,16 +3,160 @@
 
 export const nav = [
   {
-    "text": "agent-architect-insight",
-    "link": "/agent-architect-insight/"
+    "text": "博客",
+    "link": "/blog",
+    "activeMatch": "^/blog"
   },
   {
-    "text": "opeclaw-advisor",
-    "link": "/opeclaw-advisor/"
+    "text": "架构笔记",
+    "activeMatch": "^/agent-architect-insight",
+    "items": [
+      {
+        "text": "主题总览",
+        "link": "/agent-architect-insight/"
+      },
+      {
+        "text": "2026-08",
+        "items": [
+          {
+            "text": "Agent 01 任务规划与执行框架",
+            "link": "/agent-architect-insight/2026-08/Agent-01-任务规划与执行框架"
+          },
+          {
+            "text": "Agent 02 协作机制与流程治理",
+            "link": "/agent-architect-insight/2026-08/Agent-02-协作机制与流程治理"
+          },
+          {
+            "text": "Agent 03 工具调用与路由容错",
+            "link": "/agent-architect-insight/2026-08/Agent-03-工具调用与路由容错"
+          },
+          {
+            "text": "Agent 04 记忆评测与安全护栏",
+            "link": "/agent-architect-insight/2026-08/Agent-04-记忆评测与安全护栏"
+          }
+        ]
+      },
+      {
+        "text": "2026-07",
+        "items": [
+          {
+            "text": "LLM 01 上下文工程与预算起步",
+            "link": "/agent-architect-insight/2026-07/LLM-01-上下文工程与预算起步"
+          },
+          {
+            "text": "LLM 02 上下文稳定性与路由控制",
+            "link": "/agent-architect-insight/2026-07/LLM-02-上下文稳定性与路由控制"
+          },
+          {
+            "text": "LLM 03 Token治理与模型分层",
+            "link": "/agent-architect-insight/2026-07/LLM-03-Token治理与模型分层"
+          },
+          {
+            "text": "LLM 04 参数策略与推理能力进阶",
+            "link": "/agent-architect-insight/2026-07/LLM-04-参数策略与推理能力进阶"
+          },
+          {
+            "text": "LLM 05 Prompt结构化与迭代方法",
+            "link": "/agent-architect-insight/2026-07/LLM-05-Prompt结构化与迭代方法"
+          },
+          {
+            "text": "LLM 06 RAG检索增强全链路",
+            "link": "/agent-architect-insight/2026-07/LLM-06-RAG检索增强全链路"
+          },
+          {
+            "text": "LLM 07 微调对齐与部署优化",
+            "link": "/agent-architect-insight/2026-07/LLM-07-微调对齐与部署优化"
+          }
+        ]
+      },
+      {
+        "text": "2026-06",
+        "items": [
+          {
+            "text": "NLP 01 语料基础与预处理体系",
+            "link": "/agent-architect-insight/2026-06/NLP-01-语料基础与预处理体系"
+          },
+          {
+            "text": "NLP 02 语义向量与Embedding工程",
+            "link": "/agent-architect-insight/2026-06/NLP-02-语义向量与Embedding工程"
+          },
+          {
+            "text": "NLP 03 训练优化与评估闭环",
+            "link": "/agent-architect-insight/2026-06/NLP-03-训练优化与评估闭环"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "FDE实践",
+    "activeMatch": "^/opeclaw-advisor",
+    "items": [
+      {
+        "text": "主题总览",
+        "link": "/opeclaw-advisor/"
+      },
+      {
+        "text": "2026-09",
+        "items": [
+          {
+            "text": "OC 01 本地优先架构与角色边界",
+            "link": "/opeclaw-advisor/2026-09/OC-01-本地优先架构与角色边界"
+          },
+          {
+            "text": "OC 02 Gateway最小闭环与安装验收",
+            "link": "/opeclaw-advisor/2026-09/OC-02-Gateway最小闭环与安装验收"
+          },
+          {
+            "text": "OC 03 模型分层与请求预算",
+            "link": "/opeclaw-advisor/2026-09/OC-03-模型分层与请求预算"
+          },
+          {
+            "text": "OC 04 消息通道与配对治理",
+            "link": "/opeclaw-advisor/2026-09/OC-04-消息通道与配对治理"
+          },
+          {
+            "text": "OC 05 技能编排与投顾技能包",
+            "link": "/opeclaw-advisor/2026-09/OC-05-技能编排与投顾技能包"
+          },
+          {
+            "text": "OC 06 记忆会话与上下文装载",
+            "link": "/opeclaw-advisor/2026-09/OC-06-记忆会话与上下文装载"
+          },
+          {
+            "text": "OC 07 多Agent协作与子代理",
+            "link": "/opeclaw-advisor/2026-09/OC-07-多Agent协作与子代理"
+          },
+          {
+            "text": "OC 08 安全沙箱与暴露面控制",
+            "link": "/opeclaw-advisor/2026-09/OC-08-安全沙箱与暴露面控制"
+          },
+          {
+            "text": "OC 09 投顾工作区实践",
+            "link": "/opeclaw-advisor/2026-09/OC-09-投顾工作区实践"
+          },
+          {
+            "text": "OC 10 经验沉淀与进化机制",
+            "link": "/opeclaw-advisor/2026-09/OC-10-经验沉淀与进化机制"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "AI揭密",
+    "link": "/ai-jiemi/",
+    "activeMatch": "^/ai-jiemi"
   },
   {
     "text": "站点地图",
-    "link": "/sitemap"
+    "link": "/sitemap",
+    "activeMatch": "^/sitemap"
+  },
+  {
+    "text": "About",
+    "link": "/about",
+    "activeMatch": "^/about"
   }
 ]
 
@@ -149,5 +293,5 @@ export const sidebar = {
       ]
     }
   ],
-  "/openclaw-guide/": []
+  "/ai-jiemi/": []
 }

@@ -8,7 +8,7 @@ const outputFile = path.join(generatedDir, 'navigation.mjs')
 const homeIndexFile = path.join(docsDir, 'index.md')
 const sitemapFile = path.join(docsDir, 'sitemap.md')
 
-const IGNORE_NAMES = new Set(['.vitepress', 'index.md', 'assets'])
+const IGNORE_NAMES = new Set(['.vitepress', 'index.md', 'assets', 'public'])
 
 function isMarkdownFile(fileName) {
   return fileName.toLowerCase().endsWith('.md')
@@ -61,7 +61,32 @@ function orderFromBase(base) {
   return Number.POSITIVE_INFINITY
 }
 
+const TOPIC_META = {
+  'agent-architect-insight': {
+    icon: '📖',
+    title: '架构笔记',
+    details: '超级个体这一步：把规划、检索、评测和护栏交给模型，先让一个人跑通。',
+    linkText: '进入架构笔记',
+  },
+  'opeclaw-advisor': {
+    icon: '🧰',
+    title: 'FDE实践',
+    details: '把想法交到现场：通道、技能、记忆和边界，从一个人交到一支队伍。',
+    linkText: '进入FDE实践',
+  },
+  'ai-jiemi': {
+    icon: '🔍',
+    title: 'AI揭密',
+    details: '把模型拆开看：它实际在做什么，边界在哪里，哪些说法经不起核对。',
+    linkText: '进入AI揭密',
+  },
+}
+
+const TOPIC_ORDER = ['agent-architect-insight', 'opeclaw-advisor', 'ai-jiemi']
+const HOME_FEATURES = TOPIC_ORDER
+
 function topicDisplayName(topic) {
+  if (TOPIC_META[topic]?.title) return TOPIC_META[topic].title
   const normalized = topic.replace(/[-_]/g, ' ').replace(/\s+/g, ' ').trim()
   if (!/[a-zA-Z]/.test(normalized)) return normalized
   return normalized
@@ -70,135 +95,52 @@ function topicDisplayName(topic) {
     .join(' ')
 }
 
+function topicSort(a, b) {
+  const left = TOPIC_ORDER.indexOf(a)
+  const right = TOPIC_ORDER.indexOf(b)
+  if (left === -1 && right === -1) return a.localeCompare(b, 'zh-Hans-CN')
+  if (left === -1) return 1
+  if (right === -1) return -1
+  return left - right
+}
+
+function localISODate(date = new Date()) {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+function daysInMonth(year, month) {
+  return new Date(year, month, 0).getDate()
+}
+
 function renderTopicIndex(topic, sections) {
   const topicName = topicDisplayName(topic)
-  const totalPosts = sections.reduce((sum, section) => sum + (section.items?.length || 0), 0)
-
-  const monthBlocks = sections
-    .map((section) => {
-      const items = (section.items || [])
-        .map((item) => `        <li><a href="${item.link}">${item.text}</a></li>`)
-        .join('\n')
-
-      return [
-        '      <section class="topic-month">',
-        `        <h2>${section.text} <span>${section.items?.length || 0} 篇</span></h2>`,
-        '        <ul>',
-        items,
-        '        </ul>',
-        '      </section>',
-      ].join('\n')
-    })
-    .join('\n')
-
-  return [
+  const tip = TOPIC_META[topic]?.details || '这一栏的笔记按月份倒序排开。'
+  const lines = [
     '---',
     `title: ${topicName}`,
-    'layout: doc',
     '---',
     '',
-    '<div class="topic-index">',
-    '  <header class="topic-header">',
-    `    <h1>${topicName}</h1>`,
-    '    <p>自动聚合该主题下所有文章，按月份倒序展示。</p>',
-    `    <div class="topic-meta">${sections.length} 个月份 · ${totalPosts} 篇文章</div>`,
-    '  </header>',
+    `# ${topicName}`,
     '',
-    '  <div class="topic-months">',
-    monthBlocks,
-    '  </div>',
-    '</div>',
+    '::: tip',
+    tip,
+    ':::',
     '',
-    '<style>',
-    '.topic-index {',
-    '  --ink: #11223a;',
-    '  --muted: #4b637f;',
-    '  --line: #d8e4f3;',
-    '  --card: #ffffff;',
-    '  max-width: 920px;',
-    '  margin: 10px auto 44px;',
-    '  color: var(--ink);',
-    '}',
-    '',
-    '.topic-header {',
-    '  padding: 24px;',
-    '  border-radius: 18px;',
-    '  background: linear-gradient(130deg, #f5fbff 0%, #edf5ff 100%);',
-    '  border: 1px solid var(--line);',
-    '}',
-    '',
-    '.topic-header h1 {',
-    '  margin: 0;',
-    '  font-size: clamp(1.75rem, 2.8vw, 2.3rem);',
-    '}',
-    '',
-    '.topic-header p {',
-    '  margin: 10px 0 8px;',
-    '  color: var(--muted);',
-    '}',
-    '',
-    '.topic-meta {',
-    '  font-size: 0.92rem;',
-    '  color: #2c4f75;',
-    '  font-weight: 600;',
-    '}',
-    '',
-    '.topic-months {',
-    '  margin-top: 18px;',
-    '  display: grid;',
-    '  gap: 14px;',
-    '}',
-    '',
-    '.topic-month {',
-    '  border: 1px solid var(--line);',
-    '  border-radius: 14px;',
-    '  background: var(--card);',
-    '  padding: 16px 18px;',
-    '}',
-    '',
-    '.topic-month h2 {',
-    '  margin: 0 0 10px;',
-    '  font-size: 1.12rem;',
-    '  display: flex;',
-    '  align-items: baseline;',
-    '  gap: 8px;',
-    '}',
-    '',
-    '.topic-month h2 span {',
-    '  color: var(--muted);',
-    '  font-size: 0.85rem;',
-    '  font-weight: 500;',
-    '}',
-    '',
-    '.topic-month ul {',
-    '  margin: 0;',
-    '  padding-left: 18px;',
-    '}',
-    '',
-    '.topic-month li + li {',
-    '  margin-top: 8px;',
-    '}',
-    '',
-    '.topic-month a {',
-    '  color: #194674;',
-    '  text-decoration: none;',
-    '}',
-    '',
-    '.topic-month a:hover {',
-    '  text-decoration: underline;',
-    '}',
-    '',
-    '@media (max-width: 640px) {',
-    '  .topic-header {',
-    '    padding: 18px;',
-    '  }',
-    '  .topic-month {',
-    '    padding: 14px;',
-    '  }',
-    '}',
-    '</style>',
-    '',
-  ].join('\n')
+  ]
+
+  for (const section of sections) {
+    lines.push(`## ${section.text}`)
+    lines.push('')
+    for (const item of section.items || []) {
+      lines.push(`- [${item.text}](${item.link})`)
+    }
+    lines.push('')
+  }
+
+  return `${lines.join('\n')}\n`
 }
 
 function writeTopicIndex(topic, sections) {
@@ -210,7 +152,7 @@ function writeTopicIndex(topic, sections) {
 function buildStructure() {
   const topicDirs = listDirs(docsDir)
     .filter((name) => !IGNORE_NAMES.has(name))
-    .sort((a, b) => a.localeCompare(b, 'zh-Hans-CN'))
+    .sort(topicSort)
 
   const nav = []
   const sidebar = {}
@@ -246,17 +188,35 @@ function buildStructure() {
       })
     }
 
+    const topicIndexLink = `/${topic}/`
     if (hasPosts) {
-      const topicIndexLink = `/${topic}/`
-      nav.push({ text: topic, link: topicIndexLink })
       topicSidebarItems.unshift({ text: '主题总览', link: topicIndexLink })
       writeTopicIndex(topic, topicSidebarItems.slice(1))
+      nav.push({
+        text: topicDisplayName(topic),
+        activeMatch: `^/${topic}`,
+        items: [
+          { text: '主题总览', link: topicIndexLink },
+          ...topicSidebarItems.slice(1).map((section) => ({
+            text: section.text,
+            items: section.items,
+          })),
+        ],
+      })
+    } else if (TOPIC_META[topic]) {
+      nav.push({
+        text: topicDisplayName(topic),
+        link: topicIndexLink,
+        activeMatch: `^/${topic}`,
+      })
     }
 
     sidebar[`/${topic}/`] = topicSidebarItems
   }
 
-  nav.push({ text: '站点地图', link: '/sitemap' })
+  nav.unshift({ text: '博客', link: '/blog', activeMatch: '^/blog' })
+  nav.push({ text: '站点地图', link: '/sitemap', activeMatch: '^/sitemap' })
+  nav.push({ text: 'About', link: '/about', activeMatch: '^/about' })
 
   return { nav, sidebar }
 }
@@ -269,12 +229,15 @@ function buildHomePosts(sidebar) {
     for (const section of sections) {
       for (const item of section.items || []) {
         const base = stripMd(path.basename(item.link))
+        const topic = item.link.split('/').filter(Boolean)[0] || ''
         posts.push({
           month: section.text,
           title: displayTitleFromBase(base),
           link: item.link,
           order: orderFromBase(base),
           relPath: toPosixPath(item.link),
+          topic,
+          topicName: topicDisplayName(topic),
         })
       }
     }
@@ -289,498 +252,142 @@ function buildHomePosts(sidebar) {
   return posts
 }
 
-function buildTopicCards(sidebar) {
-  const cards = []
-
-  for (const key of Object.keys(sidebar)) {
-    const topic = key.replace(/^\//, '').replace(/\/$/, '')
-    const topicName = topicDisplayName(topic)
-    const sections = (sidebar[key] || []).filter((section) => Array.isArray(section.items))
-    const allItems = sections.flatMap((section) => section.items || [])
-
-    cards.push({
-      topic,
-      topicName,
-      monthCount: sections.length,
-      postCount: allItems.length,
-      latestPosts: allItems.slice(0, 3),
-      topicLink: `/${topic}/`,
-    })
-  }
-
-  return cards
+function yamlQuote(value) {
+  return JSON.stringify(value)
 }
 
-function writeHomeIndex(posts, sidebar) {
-  const cards = buildTopicCards(sidebar)
-  const monthOptions = Array.from(new Set(posts.map((post) => post.month)))
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
 
-  const postItems = posts
-    .map((post) => {
-      return [
-        `      <li class="post-item" data-title="${post.title.toLowerCase()}" data-month="${post.month}">`,
-        '        <div class="post-line">',
-        `          <a class="post-title" href="${post.link}">${post.title}</a>`,
-        `          <span class="post-meta">${post.month.replace('-', '/')}</span>`,
-        '        </div>',
-        '      </li>',
-      ].join('\n')
-    })
+function renderHomeLayout() {
+  const features = HOME_FEATURES.map((topic) => {
+    const meta = TOPIC_META[topic]
+    return {
+      icon: meta.icon,
+      title: meta.title,
+      details: meta.details,
+      link: `/${topic}/`,
+      linkText: meta.linkText,
+    }
+  })
+
+  const featureYaml = features
+    .map((feature) =>
+      [
+        `  - icon: ${feature.icon}`,
+        `    title: ${yamlQuote(feature.title)}`,
+        `    details: ${yamlQuote(feature.details)}`,
+        `    link: ${feature.link}`,
+        `    linkText: ${yamlQuote(feature.linkText)}`,
+      ].join('\n'),
+    )
     .join('\n')
 
-  const cardItems = cards
-    .map((card) => {
-      const latest = card.latestPosts
-        .map((item) => `<li><a href="${item.link}">${item.text}</a></li>`)
-        .join('')
+  return [
+    '---',
+    'layout: home',
+    'layoutClass: m-home-layout',
+    'pageClass: m-home-layout',
+    '',
+    'hero:',
+    '  name: "Tasarinan\'s Blog"',
+    '  tagline: 把想法交给AI，从超级个体走向超级团队',
+    '  image:',
+    '    src: /hero.jpg',
+    '    alt: Tasarinan',
+    '  actions:',
+    '    - theme: brand',
+    '      text: 进入博客',
+    '      link: /blog',
+    '    - theme: alt',
+    '      text: 进入仓库',
+    '      link: https://github.com/Tasarinan/Tasarinan.github.io',
+    '',
+    'features:',
+    featureYaml,
+    '---',
+    '',
+  ].join('\n')
+}
 
-      return [
-        '      <article class="topic-card">',
-        '        <div class="topic-card-head">',
-        `          <h3><a href="${card.topicLink}">${card.topicName}</a></h3>`,
-        `          <span>${card.postCount} 篇</span>`,
-        '        </div>',
-        `        <div class="topic-card-meta">${card.monthCount} 个月份</div>`,
-        `        <ul class="topic-card-list">${latest}</ul>`,
-        '      </article>',
-      ].join('\n')
-    })
-    .join('\n')
-
+function writeHomeIndex() {
   const content = [
-    '---',
-    'title: 博客',
-    'layout: doc',
-    '---',
-    '',
-    '<div class="blog-index">',
-    '  <section class="hero">',
-    '    <p class="hero-kicker">Tasarinan.github.io</p>',
-    '    <h1>工程笔记</h1>',
-    '    <p class="hero-subtitle">围绕 LLM、Agent 与 OpenClaw 投顾实践，持续沉淀可复用的方法、指标与设计决策。</p>',
-    '    <div class="hero-tags">',
-    '      <span>Architecture</span>',
-    '      <span>RAG</span>',
-    '      <span>Prompting</span>',
-    '      <span>Safety</span>',
-    '      <span>Evaluation</span>',
-    '      <span>OpenClaw</span>',
-    '      <span>Skills</span>',
-    '      <span>Memory</span>',
-    '    </div>',
-    '  </section>',
-    '',
-    '  <section class="topics-panel">',
-    '    <div class="panel-head">',
-    '      <h2>主题导航</h2>',
-    '      <a href="/sitemap">查看全站地图</a>',
-    '    </div>',
-    '    <div class="topic-grid">',
-    cardItems,
-    '    </div>',
-    '  </section>',
-    '',
-    '  <section class="post-section">',
-    '    <div class="post-section-head">',
-    '      <h2>最新文章</h2>',
-    '      <p>按发布时间倒序自动更新</p>',
-    '    </div>',
-    '    <div class="post-filter">',
-    '      <input id="post-search-input" type="search" placeholder="输入关键词筛选文章，如 RAG / 记忆 / Prompt" />',
-    '      <select id="post-month-select" aria-label="按月份筛选">',
-    '        <option value="">全部月份</option>',
-    ...monthOptions.map((month) => `        <option value="${month}">${month.replace('-', '/')}</option>`),
-    '      </select>',
-    '      <button id="post-filter-reset" type="button">清空筛选</button>',
-    '      <span id="post-search-count"></span>',
-    '    </div>',
-    '    <ul class="post-list" id="post-list">',
-    postItems,
-    '    </ul>',
-    '  </section>',
-    '</div>',
-    '',
-    '<style>',
-    '.blog-index {',
-    '  --ink: #14253a;',
-    '  --muted: #48627f;',
-    '  --line: #d4e1ed;',
-    '  --brand-soft: #e5f0fb;',
-    '  max-width: 980px;',
-    '  margin: 8px auto 44px;',
-    '  color: var(--ink);',
-    '  font-family: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;',
-    '}',
-    '',
-    '.hero {',
-    '  position: relative;',
-    '  overflow: hidden;',
-    '  border-radius: 22px;',
-    '  padding: 34px 30px 28px;',
-    '  background: radial-gradient(circle at 0% 0%, #fdfefe 0%, #eef6ff 55%, #e4eef9 100%);',
-    '  border: 1px solid var(--line);',
-    '  box-shadow: 0 20px 36px -30px rgba(15, 43, 81, 0.35);',
-    '}',
-    '',
-    '.hero::after {',
-    '  content: "";',
-    '  position: absolute;',
-    '  right: -60px;',
-    '  top: -50px;',
-    '  width: 240px;',
-    '  height: 240px;',
-    '  border-radius: 999px;',
-    '  background: linear-gradient(130deg, rgba(130, 169, 209, 0.24), rgba(15, 76, 129, 0.08));',
-    '}',
-    '',
-    '.hero-kicker {',
-    '  margin: 0;',
-    '  font-size: 0.8rem;',
-    '  text-transform: uppercase;',
-    '  letter-spacing: 0.14em;',
-    '  color: #315579;',
-    '  font-weight: 700;',
-    '}',
-    '',
-    '.hero h1 {',
-    '  margin: 8px 0 0;',
-    '  font-size: clamp(1.85rem, 3.8vw, 2.8rem);',
-    '  line-height: 1.08;',
-    '  letter-spacing: -0.02em;',
-    '}',
-    '',
-    '.hero-subtitle {',
-    '  max-width: 690px;',
-    '  margin: 14px 0 0;',
-    '  color: var(--muted);',
-    '  font-size: 1.03rem;',
-    '  line-height: 1.56;',
-    '}',
-    '',
-    '.hero-tags {',
-    '  position: relative;',
-    '  z-index: 1;',
-    '  display: flex;',
-    '  flex-wrap: wrap;',
-    '  gap: 8px;',
-    '  margin-top: 16px;',
-    '}',
-    '',
-    '.hero-tags span {',
-    '  display: inline-flex;',
-    '  align-items: center;',
-    '  justify-content: center;',
-    '  padding: 5px 10px;',
-    '  border-radius: 999px;',
-    '  background: var(--brand-soft);',
-    '  color: #194977;',
-    '  border: 1px solid #cce0f4;',
-    '  font-size: 0.8rem;',
-    '  font-weight: 600;',
-    '}',
-    '',
-    '.topics-panel, .post-section {',
-    '  margin-top: 16px;',
-    '  border: 1px solid var(--line);',
-    '  border-radius: 18px;',
-    '  background: #fff;',
-    '  padding: 16px;',
-    '}',
-    '',
-    '.panel-head, .post-section-head {',
-    '  display: flex;',
-    '  justify-content: space-between;',
-    '  align-items: baseline;',
-    '  gap: 10px;',
-    '  border-bottom: 1px solid #e6eef7;',
-    '  padding-bottom: 12px;',
-    '}',
-    '',
-    '.panel-head h2, .post-section-head h2 {',
-    '  margin: 0;',
-    '  font-size: 1.16rem;',
-    '}',
-    '',
-    '.panel-head a {',
-    '  color: #194674;',
-    '  font-size: 0.88rem;',
-    '  text-decoration: none;',
-    '}',
-    '',
-    '.panel-head a:hover {',
-    '  text-decoration: underline;',
-    '}',
-    '',
-    '.post-section-head p {',
-    '  margin: 0;',
-    '  color: var(--muted);',
-    '  font-size: 0.9rem;',
-    '}',
-    '',
-    '.topic-grid {',
-    '  margin-top: 12px;',
-    '  display: grid;',
-    '  gap: 10px;',
-    '  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));',
-    '}',
-    '',
-    '.topic-card {',
-    '  border: 1px solid #e6edf5;',
-    '  border-radius: 12px;',
-    '  padding: 12px;',
-    '  background: linear-gradient(130deg, #ffffff 0%, #f7fbff 100%);',
-    '}',
-    '',
-    '.topic-card-head {',
-    '  display: flex;',
-    '  justify-content: space-between;',
-    '  align-items: baseline;',
-    '  gap: 8px;',
-    '}',
-    '',
-    '.topic-card-head h3 {',
-    '  margin: 0;',
-    '  font-size: 1rem;',
-    '}',
-    '',
-    '.topic-card-head h3 a {',
-    '  color: #143a63;',
-    '  text-decoration: none;',
-    '}',
-    '',
-    '.topic-card-head h3 a:hover {',
-    '  text-decoration: underline;',
-    '}',
-    '',
-    '.topic-card-head span {',
-    '  font-size: 0.78rem;',
-    '  color: #3b5d81;',
-    '  background: #eaf2fb;',
-    '  padding: 2px 6px;',
-    '  border-radius: 999px;',
-    '}',
-    '',
-    '.topic-card-meta {',
-    '  margin-top: 6px;',
-    '  color: #56718d;',
-    '  font-size: 0.82rem;',
-    '}',
-    '',
-    '.topic-card-list {',
-    '  margin: 8px 0 0;',
-    '  padding-left: 17px;',
-    '}',
-    '',
-    '.topic-card-list li + li {',
-    '  margin-top: 5px;',
-    '}',
-    '',
-    '.topic-card-list a {',
-    '  color: #214f7a;',
-    '  text-decoration: none;',
-    '  font-size: 0.88rem;',
-    '}',
-    '',
-    '.topic-card-list a:hover {',
-    '  text-decoration: underline;',
-    '}',
-    '',
-    '.post-filter {',
-    '  margin-top: 12px;',
-    '  display: grid;',
-    '  grid-template-columns: minmax(220px, 1fr) 130px 100px auto;',
-    '  gap: 8px;',
-    '  align-items: center;',
-    '}',
-    '',
-    '.post-filter input {',
-    '  width: 100%;',
-    '  border: 1px solid #cfdceb;',
-    '  border-radius: 10px;',
-    '  padding: 9px 11px;',
-    '  font-size: 0.92rem;',
-    '  color: #17314e;',
-    '  background: #f9fcff;',
-    '}',
-    '',
-    '.post-filter input:focus {',
-    '  outline: 2px solid #c8ddf3;',
-    '  border-color: #97badf;',
-    '}',
-
-    '.post-filter select {',
-    '  border: 1px solid #cfdceb;',
-    '  border-radius: 10px;',
-    '  padding: 9px 10px;',
-    '  font-size: 0.9rem;',
-    '  color: #17314e;',
-    '  background: #f9fcff;',
-    '}',
-
-    '.post-filter select:focus {',
-    '  outline: 2px solid #c8ddf3;',
-    '  border-color: #97badf;',
-    '}',
-
-    '.post-filter button {',
-    '  border: 1px solid #b4cbe5;',
-    '  border-radius: 10px;',
-    '  padding: 8px 10px;',
-    '  background: #eef5fc;',
-    '  color: #20476e;',
-    '  font-size: 0.88rem;',
-    '  font-weight: 600;',
-    '  cursor: pointer;',
-    '}',
-
-    '.post-filter button:hover {',
-    '  background: #e0eefb;',
-    '}',
-    '',
-    '.post-filter span {',
-    '  color: #4a6684;',
-    '  font-size: 0.84rem;',
-    '}',
-    '',
-    '.post-list {',
-    '  list-style: none;',
-    '  margin: 10px 0 0;',
-    '  padding: 0;',
-    '}',
-    '',
-    '.post-item {',
-    '  margin-top: 8px;',
-    '  border: 1px solid #e6edf5;',
-    '  border-radius: 12px;',
-    '  background: linear-gradient(130deg, #ffffff 0%, #f7fbff 100%);',
-    '  padding: 11px 12px;',
-    '  animation: fade-up 420ms ease both;',
-    '}',
-    '',
-    '.post-item:nth-child(2n) {',
-    '  animation-delay: 60ms;',
-    '}',
-    '',
-    '.post-item:nth-child(3n) {',
-    '  animation-delay: 120ms;',
-    '}',
-    '',
-    '.post-line {',
-    '  display: flex;',
-    '  align-items: baseline;',
-    '  justify-content: space-between;',
-    '  gap: 10px;',
-    '}',
-    '',
-    '.post-item.is-hidden {',
-    '  display: none;',
-    '}',
-    '',
-    '.post-title {',
-    '  color: #143a63;',
-    '  text-decoration: none;',
-    '  font-size: 1rem;',
-    '  font-weight: 600;',
-    '  line-height: 1.38;',
-    '}',
-    '',
-    '.post-title:hover {',
-    '  text-decoration: underline;',
-    '}',
-    '',
-    '.post-meta {',
-    '  color: #456281;',
-    '  font-size: 0.82rem;',
-    '  letter-spacing: 0.03em;',
-    '  white-space: nowrap;',
-    '}',
-    '',
-    '@keyframes fade-up {',
-    '  from {',
-    '    opacity: 0;',
-    '    transform: translateY(8px);',
-    '  }',
-    '  to {',
-    '    opacity: 1;',
-    '    transform: translateY(0);',
-    '  }',
-    '}',
-    '',
-    '@media (max-width: 640px) {',
-    '  .blog-index {',
-    '    margin-top: 6px;',
-    '  }',
-    '  .hero {',
-    '    border-radius: 16px;',
-    '    padding: 24px 18px 20px;',
-    '  }',
-    '  .hero-subtitle {',
-    '    font-size: 0.95rem;',
-    '  }',
-    '  .topics-panel, .post-section {',
-    '    border-radius: 14px;',
-    '    padding: 12px;',
-    '  }',
-    '  .panel-head, .post-section-head {',
-    '    flex-direction: column;',
-    '    align-items: flex-start;',
-    '    gap: 4px;',
-    '  }',
-    '  .post-filter {',
-    '    grid-template-columns: 1fr;',
-    '  }',
-    '  .post-line {',
-    '    flex-direction: column;',
-    '    align-items: flex-start;',
-    '  }',
-    '}',
-    '</style>',
-    '',
-    '<script>',
-    '(() => {',
-    '  if (typeof window === "undefined" || typeof document === "undefined") return',
-    '  const input = document.getElementById("post-search-input")',
-    '  const monthSelect = document.getElementById("post-month-select")',
-    '  const resetBtn = document.getElementById("post-filter-reset")',
-    '  const count = document.getElementById("post-search-count")',
-    '  const list = document.getElementById("post-list")',
-    '  if (!input || !monthSelect || !resetBtn || !count || !list) return',
-    '',
-    '  const items = Array.from(list.querySelectorAll(".post-item"))',
-    '  const renderCount = () => {',
-    '    const visible = items.filter((item) => !item.classList.contains("is-hidden")).length',
-    '    count.textContent = `显示 ${visible} / ${items.length}`',
-    '  }',
-    '',
-    '  const runFilter = () => {',
-    '    const q = input.value.trim().toLowerCase()',
-    '    const selectedMonth = monthSelect.value',
-    '    for (const item of items) {',
-    '      const title = item.getAttribute("data-title") || ""',
-    '      const month = item.getAttribute("data-month") || ""',
-    '      const matchText = !q || title.includes(q) || month.includes(q)',
-    '      const matchMonth = !selectedMonth || month === selectedMonth',
-    '      const hit = matchText && matchMonth',
-    '      item.classList.toggle("is-hidden", !hit)',
-    '    }',
-    '    renderCount()',
-    '  }',
-    '',
-    '  input.addEventListener("input", runFilter)',
-    '  monthSelect.addEventListener("change", runFilter)',
-    '  resetBtn.addEventListener("click", () => {',
-    '    input.value = ""',
-    '    monthSelect.value = ""',
-    '    runFilter()',
-    '  })',
-    '  renderCount()',
-    '})()',
-    '</script>',
+    renderHomeLayout(),
+    '<ClientOnly>',
+    '  <Heatmap />',
+    '</ClientOnly>',
     '',
   ].join('\n')
 
   fs.writeFileSync(homeIndexFile, content, 'utf8')
 }
+
+function writeBlogPage(posts) {
+  const groups = new Map()
+  for (const post of posts) {
+    if (!groups.has(post.month)) groups.set(post.month, [])
+    groups.get(post.month).push(post)
+  }
+
+  const lines = [
+    renderHomeLayout(),
+    '<ClientOnly>',
+    '  <Heatmap />',
+    '</ClientOnly>',
+    '',
+    '<section class="blog-stream">',
+    '  <h2>最新文章</h2>',
+  ]
+
+  for (const [month, list] of groups) {
+    lines.push(`  <h3>${month.replace('-', '/')}</h3>`)
+    lines.push('  <ul>')
+    for (const post of list) {
+      lines.push(
+        `    <li><a href="${escapeHtml(post.link)}">${escapeHtml(post.title)}</a><span class="blog-topic">${escapeHtml(post.topicName)}</span></li>`,
+      )
+    }
+    lines.push('  </ul>')
+  }
+
+  lines.push('</section>', '')
+
+  fs.writeFileSync(path.join(docsDir, 'blog.md'), `${lines.join('\n')}\n`, 'utf8')
+}
+
+function writeHeatmap(posts) {
+  const counts = {}
+  const byMonth = new Map()
+
+  for (const post of posts) {
+    if (!byMonth.has(post.month)) byMonth.set(post.month, [])
+    byMonth.get(post.month).push(post)
+  }
+
+  for (const [month, list] of byMonth) {
+    const [year, monthNumber] = month.split('-').map((part) => Number.parseInt(part, 10))
+    const limit = daysInMonth(year, monthNumber)
+    const anchors = [11, 18, 25, 8].filter((day) => day <= limit)
+    list.forEach((post, index) => {
+      const day = anchors[index % anchors.length]
+      const key = `${month}-${String(day).padStart(2, '0')}`
+      counts[key] = (counts[key] || 0) + 1
+    })
+  }
+
+  const payload = {
+    asOf: localISODate(),
+    counts,
+  }
+
+  fs.writeFileSync(path.join(generatedDir, 'heatmap.json'), `${JSON.stringify(payload, null, 2)}\n`, 'utf8')
+}
+
 
 function writeNavigationFile(nav, sidebar) {
   if (!fs.existsSync(generatedDir)) {
@@ -838,9 +445,12 @@ const { nav, sidebar } = buildStructure()
 writeNavigationFile(nav, sidebar)
 const posts = buildHomePosts(sidebar)
 writeHomeIndex(posts, sidebar)
+writeBlogPage(posts)
+writeHeatmap(posts)
 writeSitemap(sidebar)
 
 console.log(`Generated ${path.relative(rootDir, outputFile)}`)
 console.log(`Generated ${path.relative(rootDir, homeIndexFile)} (${posts.length} posts)`)
+console.log(`Generated ${path.relative(rootDir, path.join(docsDir, 'blog.md'))}`)
 console.log(`Generated ${path.relative(rootDir, sitemapFile)}`)
 console.log(`Topics: ${Object.keys(sidebar).length}`)
