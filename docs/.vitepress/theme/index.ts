@@ -1,4 +1,4 @@
-import { h, watch } from 'vue'
+import { h, resolveComponent, watch } from 'vue'
 import type { Theme } from 'vitepress'
 import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
@@ -10,12 +10,17 @@ import './styles/index.css'
 export default {
   extends: DefaultTheme,
   Layout() {
-    const { page } = useData()
+    const { frontmatter, page } = useData()
     const relativePath = page.value.relativePath || ''
     const isArticle = /^[^/]+\/\d{4}-\d{2}\//.test(relativePath)
+    const isHome = frontmatter.value.layout === 'home'
+    const ClientOnly = resolveComponent('ClientOnly')
 
     return h(DefaultTheme.Layout, null, {
       'doc-footer-before': isArticle ? () => h(PostNote) : undefined,
+      'home-features-after': isHome
+        ? () => h(ClientOnly, null, { default: () => h(Heatmap) })
+        : undefined,
     })
   },
   enhanceApp({ app, router }) {

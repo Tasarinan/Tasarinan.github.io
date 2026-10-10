@@ -20,4 +20,5 @@ lastUpdated: false
 - [架构笔记](/agent-architect-insight/)：规划、检索、评测和护栏
 - [FDE实践](/opeclaw-advisor/)：把想法交到现场，从一个人交到一支队伍
 - [AI揭密](/ai-jiemi/)：把模型拆开，看它实际在做什么
+- [Java架构](/java-architect-attack/)：容器、并发、JVM、中间件和线上事故，按周拆开练
 - [站点地图](/sitemap)：一次把目录摊开

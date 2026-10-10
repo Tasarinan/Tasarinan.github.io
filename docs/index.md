@@ -34,7 +34,3 @@ features:
     link: /ai-jiemi/
     linkText: "进入AI揭密"
 ---
-
-<ClientOnly>
-  <Heatmap />
-</ClientOnly>

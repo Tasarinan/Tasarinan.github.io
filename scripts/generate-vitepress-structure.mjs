@@ -80,10 +80,17 @@ const TOPIC_META = {
     details: '把模型拆开看：它实际在做什么，边界在哪里，哪些说法经不起核对。',
     linkText: '进入AI揭密',
   },
+  'java-architect-attack': {
+    icon: '☕',
+    title: 'Java架构',
+    details: '按周把容器、并发、JVM、中间件和线上事故拆开练，补齐架构师这一层。',
+    linkText: '进入Java架构',
+    navMode: 'index',
+  },
 }
 
-const TOPIC_ORDER = ['agent-architect-insight', 'opeclaw-advisor', 'ai-jiemi']
-const HOME_FEATURES = TOPIC_ORDER
+const TOPIC_ORDER = ['agent-architect-insight', 'opeclaw-advisor', 'ai-jiemi', 'java-architect-attack']
+const HOME_FEATURES = ['agent-architect-insight', 'opeclaw-advisor', 'ai-jiemi']
 
 function topicDisplayName(topic) {
   if (TOPIC_META[topic]?.title) return TOPIC_META[topic].title
@@ -183,7 +190,7 @@ function buildStructure() {
 
       topicSidebarItems.push({
         text: month,
-        collapsed: false,
+        collapsed: items.length > 12,
         items,
       })
     }
@@ -192,17 +199,25 @@ function buildStructure() {
     if (hasPosts) {
       topicSidebarItems.unshift({ text: '主题总览', link: topicIndexLink })
       writeTopicIndex(topic, topicSidebarItems.slice(1))
-      nav.push({
-        text: topicDisplayName(topic),
-        activeMatch: `^/${topic}`,
-        items: [
-          { text: '主题总览', link: topicIndexLink },
-          ...topicSidebarItems.slice(1).map((section) => ({
-            text: section.text,
-            items: section.items,
-          })),
-        ],
-      })
+      if (TOPIC_META[topic]?.navMode === 'index') {
+        nav.push({
+          text: topicDisplayName(topic),
+          link: topicIndexLink,
+          activeMatch: `^/${topic}`,
+        })
+      } else {
+        nav.push({
+          text: topicDisplayName(topic),
+          activeMatch: `^/${topic}`,
+          items: [
+            { text: '主题总览', link: topicIndexLink },
+            ...topicSidebarItems.slice(1).map((section) => ({
+              text: section.text,
+              items: section.items,
+            })),
+          ],
+        })
+      }
     } else if (TOPIC_META[topic]) {
       nav.push({
         text: topicDisplayName(topic),
@@ -316,15 +331,7 @@ function renderHomeLayout() {
 }
 
 function writeHomeIndex() {
-  const content = [
-    renderHomeLayout(),
-    '<ClientOnly>',
-    '  <Heatmap />',
-    '</ClientOnly>',
-    '',
-  ].join('\n')
-
-  fs.writeFileSync(homeIndexFile, content, 'utf8')
+  fs.writeFileSync(homeIndexFile, renderHomeLayout(), 'utf8')
 }
 
 function writeBlogPage(posts) {
@@ -336,10 +343,6 @@ function writeBlogPage(posts) {
 
   const lines = [
     renderHomeLayout(),
-    '<ClientOnly>',
-    '  <Heatmap />',
-    '</ClientOnly>',
-    '',
     '<section class="blog-stream">',
     '  <h2>最新文章</h2>',
   ]

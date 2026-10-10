@@ -15,6 +15,9 @@ export default defineConfig({
   markdown: {
     config(md) {
       md.set({ html: true })
+      const render = md.render.bind(md)
+      md.render = (src, env) =>
+        render(src, env).replaceAll('{{', '&#123;&#123;').replaceAll('}}', '&#125;&#125;')
     },
   },
   themeConfig: {
